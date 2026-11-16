@@ -1,0 +1,2618 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма Окон — Инженерный замер нестандартных окон (14 шаблонов + PDF)</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Форма Окон">
+    <style>
+        /* Базовый сброс и автономная замена утилитарных классов Tailwind */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+        input, button { font: inherit; }
+        button { cursor: pointer; background: none; border: none; }
+
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
+        /* Размеры и контейнеры */
+        .max-w-7xl { max-width: 80rem; }
+        .max-w-sm { max-width: 24rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .min-h-screen { min-height: 100vh; }
+        .min-h-\[540px\] { min-height: 540px; }
+        .min-h-\[450px\] { min-height: 450px; }
+        .max-h-\[540px\] { max-height: 540px; }
+        .w-full { width: 100%; }
+        .h-full { height: 100%; }
+        .w-40 { width: 10rem; }
+        .w-44 { width: 11rem; }
+        .w-11 { width: 2.75rem; }
+        .h-9 { height: 2.25rem; }
+        .w-4 { width: 1rem; }
+        .h-1 { height: 0.25rem; }
+        .w-3 { width: 0.75rem; }
+        .h-0\.5 { height: 0.125rem; }
+        .w-\[16\%\] { width: 16%; }
+        .w-\[22\%\] { width: 22%; }
+        .w-\[26\%\] { width: 26%; }
+        .w-\[8\%\] { width: 8%; }
+        .w-\[12\%\] { width: 12%; }
+        .w-\[28\%\] { width: 28%; }
+        .w-\[25\%\] { width: 25%; }
+
+        /* Flexbox и Grid */
+        .flex { display: flex; }
+        .inline-block { display: inline-block; }
+        .block { display: block; }
+        .hidden { display: none !important; }
+        .flex-col { flex-direction: column; }
+        .flex-wrap { flex-wrap: wrap; }
+        .flex-1 { flex: 1 1 0%; }
+        .shrink-0 { flex-shrink: 0; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .justify-between { justify-content: space-between; }
+        .justify-center { justify-content: center; }
+
+        .grid { display: grid; }
+        .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+        .col-span-2 { grid-column: span 2 / span 2; }
+        .col-span-5 { grid-column: span 5 / span 5; }
+        .col-span-7 { grid-column: span 7 / span 7; }
+
+        /* Внутренние и внешние отступы */
+        .p-2 { padding: 0.5rem; }
+        .p-2\.5 { padding: 0.625rem; }
+        .p-3 { padding: 0.75rem; }
+        .p-3\.5 { padding: 0.875rem; }
+        .p-4 { padding: 1rem; }
+        .p-5 { padding: 1.25rem; }
+        .px-1\.5 { padding-left: 0.375rem; padding-right: 0.375rem; }
+        .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+        .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
+        .px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
+        .px-4 { padding-left: 1rem; padding-right: 1rem; }
+        .py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
+        .py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
+        .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
+        .pb-2 { padding-bottom: 0.5rem; }
+        .pb-3 { padding-bottom: 0.75rem; }
+        .pt-2 { padding-top: 0.5rem; }
+
+        .mt-0\.5 { margin-top: 0.125rem; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-2 { margin-top: 0.5rem; }
+        .mb-1 { margin-bottom: 0.25rem; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+
+        .gap-1 { gap: 0.25rem; }
+        .gap-1\.5 { gap: 0.375rem; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-2\.5 { gap: 0.625rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-x-4 { column-gap: 1rem; }
+        .gap-y-2 { row-gap: 0.5rem; }
+
+        .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.5rem; }
+        .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.75rem; }
+        .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+
+        /* Типографика */
+        .text-\[10px\] { font-size: 10px; }
+        .text-\[11px\] { font-size: 11px; }
+        .text-xs { font-size: 0.75rem; line-height: 1rem; }
+        .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+        .text-base { font-size: 1rem; line-height: 1.5rem; }
+        .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+        .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+        .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+        .font-normal { font-weight: 400; }
+        .font-medium { font-weight: 500; }
+        .font-semibold { font-weight: 600; }
+        .font-bold { font-weight: 700; }
+        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        .uppercase { text-transform: uppercase; }
+        .tracking-wider { letter-spacing: 0.05em; }
+        .tracking-wide { letter-spacing: 0.025em; }
+        .leading-none { line-height: 1; }
+        .leading-tight { line-height: 1.25; }
+        .leading-relaxed { line-height: 1.625; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .list-decimal { list-style-type: decimal; }
+        .list-inside { list-style-position: inside; }
+
+        /* Фоновые цвета и градиенты */
+        .bg-white { background-color: #ffffff; }
+        .bg-slate-50 { background-color: #f8fafc; }
+        .bg-slate-100 { background-color: #f1f5f9; }
+        .bg-slate-800 { background-color: #1e293b; }
+        .bg-slate-900 { background-color: #0f172a; }
+        .bg-slate-900\/60 { background-color: rgba(15, 23, 42, 0.6); }
+        .bg-blue-50 { background-color: #eff6ff; }
+        .bg-blue-600 { background-color: #2563eb; }
+        .bg-blue-500\/30 { background-color: rgba(59, 130, 246, 0.3); }
+        .bg-blue-950\/60 { background-color: rgba(23, 37, 84, 0.6); }
+        .bg-emerald-600 { background-color: #059669; }
+        .bg-rose-50 { background-color: #fff1f2; }
+        .bg-amber-50 { background-color: #fffbeb; }
+        .bg-amber-500 { background-color: #f59e0b; }
+        .bg-gradient-to-br.from-blue-900.to-indigo-900 {
+            background-image: linear-gradient(to bottom right, #1e3a8a, #312e81);
+        }
+
+        /* Цвета текста */
+        .text-white { color: #ffffff; }
+        .text-slate-400 { color: #94a3b8; }
+        .text-slate-500 { color: #64748b; }
+        .text-slate-600 { color: #475569; }
+        .text-slate-700 { color: #334155; }
+        .text-slate-800 { color: #1e293b; }
+        .text-slate-900 { color: #0f172a; }
+        .text-blue-200 { color: #bfdbfe; }
+        .text-blue-300 { color: #93c5fd; }
+        .text-blue-600 { color: #2563eb; }
+        .text-blue-700 { color: #1d4ed8; }
+        .text-blue-800 { color: #1e40af; }
+        .text-indigo-700 { color: #4338ca; }
+        .text-emerald-600 { color: #059669; }
+        .text-rose-300 { color: #fda4af; }
+        .text-rose-500 { color: #f43f5e; }
+        .text-rose-600 { color: #e11d48; }
+        .text-rose-700 { color: #be123c; }
+        .text-rose-900 { color: #881337; }
+        .text-amber-300 { color: #fcd34d; }
+        .text-amber-600 { color: #d97706; }
+        .text-amber-700 { color: #b45309; }
+        .text-amber-900 { color: #78350f; }
+
+        /* Границы, скругления и тени */
+        .border { border: 1px solid #e2e8f0; }
+        .border-2 { border: 2px solid #e2e8f0; }
+        .border-b { border-bottom: 1px solid #e2e8f0; }
+        .border-b-2 { border-bottom: 2px solid #e2e8f0; }
+        .border-t { border-top: 1px solid #e2e8f0; }
+        .border-t-2 { border-top: 2px solid #e2e8f0; }
+        .border-r { border-right: 1px solid #e2e8f0; }
+        .border-slate-200 { border-color: #e2e8f0; }
+        .border-slate-300 { border-color: #cbd5e1; }
+        .border-slate-800 { border-color: #1e293b; }
+        .border-slate-900 { border-color: #0f172a; }
+        .border-blue-200 { border-color: #bfdbfe; }
+        .border-blue-600 { border-color: #2563eb; }
+        .border-blue-700\/50 { border-color: rgba(29, 78, 216, 0.5); }
+        .border-blue-800\/80 { border-color: rgba(30, 64, 175, 0.8); }
+        .border-rose-300 { border-color: #fda4af; }
+        .border-amber-200 { border-color: #fde68a; }
+        .border-amber-300 { border-color: #fcd34d; }
+        .border-dashed { border-style: dashed; }
+
+        .rounded { border-radius: 0.25rem; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-xl { border-radius: 0.75rem; }
+        .rounded-2xl { border-radius: 1rem; }
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+
+        /* Позиционирование и интерактивность */
+        .relative { position: relative; }
+        .fixed { position: fixed; }
+        .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+        .z-50 { z-index: 50; }
+        .overflow-visible { overflow: visible; }
+        .overflow-hidden { overflow: hidden; }
+        .cursor-pointer { cursor: pointer; }
+        .outline-none { outline: none; }
+        .backdrop-blur-sm { backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+        .transition { transition: all 0.15s ease-in-out; }
+        .hover\:bg-blue-700:hover { background-color: #1d4ed8; }
+        .hover\:bg-emerald-700:hover { background-color: #047857; }
+        .hover\:border-blue-400:hover { border-color: #60a5fa; }
+        .hover\:text-slate-600:hover { color: #475569; }
+        input:focus { border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.35); }
+
+        /* Адаптивные медиа-запросы */
+        @media (min-width: 640px) {
+            .sm\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        }
+        @media (min-width: 768px) {
+            .md\:p-6 { padding: 1.5rem; }
+            .md\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+            .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+            .lg\:col-span-5 { grid-column: span 5 / span 5; }
+            .lg\:col-span-7 { grid-column: span 7 / span 7; }
+        }
+
+        /* Карточки шаблонов */
+        .template-card {
+            transition: all 0.15s ease-in-out;
+        }
+        .template-card.active {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
+            transform: translateY(-1px);
+        }
+
+        /* Скрытый по умолчанию печатный лист А4 */
+        #printSheetA4 {
+            display: none;
+        }
+
+        /* Режим системной векторной печати (Ctrl+P / Сохранить как PDF) */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 8mm;
+            }
+            body {
+                background: #ffffff !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            #appWorkspace, #iosInstallModal, #paywallModal, #rewardAdModal {
+                display: none !important;
+            }
+            #printSheetA4 {
+                display: flex !important;
+                flex-direction: column;
+                justify-content: space-between;
+                width: 194mm;
+                height: 281mm;
+                margin: 0 auto;
+                border: 2px solid #0f172a;
+                box-sizing: border-box;
+                background: #ffffff;
+                font-family: Arial, sans-serif;
+                color: #0f172a;
+                overflow: hidden;
+            }
+        }
+
+
+        /* Стили системы триала, подписки PRO и рекламных блоков */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            border: 1px solid transparent;
+        }
+        .status-badge-trial {
+            background-color: #eff6ff;
+            color: #1d4ed8;
+            border-color: #bfdbfe;
+        }
+        .status-badge-trial:hover { background-color: #dbeafe; }
+        .status-badge-pro {
+            background-color: #ecfdf5;
+            color: #047857;
+            border-color: #a7f3d0;
+        }
+        .status-badge-free {
+            background-color: #fff1f2;
+            color: #be123c;
+            border-color: #fecdd3;
+        }
+        .status-badge-free:hover { background-color: #ffe4e6; }
+        .pro-lock-tag {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #f59e0b;
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 4px;
+            border-radius: 4px;
+            line-height: 1.1;
+        }
+        .ad-banner-box {
+            background: linear-gradient(90deg, #f8fafc 0%, #eff6ff 100%);
+            border: 1px dashed #94a3b8;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+        }
+
+        .plan-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 0.65rem 0.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+            background: #ffffff;
+            position: relative;
+        }
+        .plan-card:hover {
+            border-color: #93c5fd;
+        }
+        .plan-card.active {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.12);
+        }
+        .plan-discount-badge {
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #059669;
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 1px 6px;
+            border-radius: 9999px;
+            white-space: nowrap;
+        }
+        .plan-discount-badge.hit {
+            background: #d97706;
+        }
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 1rem;
+            max-width: 28rem;
+            width: 100%;
+            padding: 1.25rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e2e8f0;
+        }
+
+        .stamp-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10px;
+        }
+        .stamp-table th, .stamp-table td {
+            border: 1px solid #1e293b;
+            padding: 3px 6px;
+            line-height: 1.25;
+        }
+        .stamp-table th {
+            background-color: #f1f5f9;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 9px;
+            color: #334155;
+        }
+    </style>
+    <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js" defer onload="if(window.vkBridge){vkBridge.send('VKWebAppInit').catch(()=>{});}"></script>
+    <script>
+        if (typeof vkBridge !== 'undefined') {
+            vkBridge.send('VKWebAppInit').catch(() => {});
+        }
+    </script>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen p-3 md:p-6">
+    
+    <!-- Основной рабочий интерфейс -->
+    <div id="appWorkspace" class="max-w-7xl mx-auto space-y-4">
+        <header class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <img src="icon.svg" alt="Форма Окон" class="w-11 h-9 rounded-lg shadow-sm" style="width: 42px; height: 42px;">
+                <div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <h1 class="text-xl font-bold text-slate-900">Форма Окон</h1>
+                        <button id="subStatusBadge" onclick="openPaywallModal('status')" class="status-badge status-badge-trial" title="Статус подписки и управление доступом">
+                            <span>⏳</span> <span id="subStatusText">Триал: 30 дн.</span>
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">Инженерный замер нестандартных окон (14 шаблонов, арки, угломер эркера + экспорт А4 в PDF)</p>
+                </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+                <input type="text" id="orderNum" placeholder="Заказ № (напр. 24-108)" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-medium outline-none w-40">
+                <input type="text" id="clientObj" placeholder="Объект / Клиент" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-medium outline-none w-44">
+                
+                <!-- Кнопка установки PWA -->
+                <button id="installPwaBtn" onclick="handleInstallPwa()" class="hidden px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-sm flex items-center gap-1.5 transition">
+                    <span>📲</span> Установить приложение
+                </button>
+
+                <button onclick="handleExportPDFClick()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm flex items-center gap-1.5 transition">
+                    <span>🖨️</span> Печать / Сохранить в PDF (А4)
+                </button>
+            </div>
+        </header>
+
+        <!-- Рекламный баннер для бесплатного режима (показывается только после окончания 30 дней триала без подписки PRO) -->
+        <div id="freeModeAdBanner" class="ad-banner-box hidden flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5">
+                <span class="px-2 py-0.5 bg-amber-500 text-white text-[10px] font-bold rounded uppercase">Реклама • Free режим</span>
+                <p class="text-xs text-slate-700 font-medium">Пробный период (30 дней) завершен. Оформите подписку <b>Форма Окон PRO</b>, чтобы отключить рекламу и ограничения.</p>
+            </div>
+            <button onclick="openPaywallModal('banner')" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition">
+                ⚡ Тарифы PRO (от 489 ₽/мес)
+            </button>
+        </div>
+
+        <!-- Визуальный выбор из 14 шаблонов -->
+        <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+            <label class="block text-xs font-bold text-slate-800 uppercase tracking-wider mb-3">
+                Выберите шаблон геометрии проема или инструмент (14 шт.):
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7 gap-2" id="templateGrid"></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- Панель управления -->
+            <div class="lg:col-span-5 space-y-4">
+                
+                <!-- 1. Размеры проема / Стороны угломера -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center justify-between">
+                        <span id="section1Title">1. Размеры проема (мм)</span>
+                        <span id="activeTemplateName" class="text-xs font-semibold text-blue-600">Шаблон</span>
+                    </h2>
+                    <div id="inputsContainer" class="grid grid-cols-2 gap-3"></div>
+                </div>
+
+                <!-- 2. Смещения (скрывается в режиме Угломера) -->
+                <div id="offsetsCard" class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wider mb-1 flex items-center justify-between">
+                        <span>2. Нахлёсты / Отступы (мм)</span>
+                        <span class="text-xs font-normal text-slate-400">Параллельно</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mb-3"><b class="text-emerald-600">+</b> нахлёст наружу, <b class="text-rose-500">-</b> отступ внутрь</p>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Слева</label>
+                            <input type="number" id="offLeft" value="20" step="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-semibold outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Справа</label>
+                            <input type="number" id="offRight" value="20" step="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-semibold outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1"><span id="labelOffTop">Сверху</span></label>
+                            <input type="number" id="offTop" value="20" step="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-semibold outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-500 mb-1">Снизу</label>
+                            <input type="number" id="offBottom" value="-50" step="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-semibold outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок предупреждения для Арки или Угломера -->
+                <div id="archWarningSection" class="bg-rose-50 border border-rose-300 p-4 rounded-xl shadow-sm space-y-2 hidden">
+                    <div class="flex items-start gap-2.5">
+                        <span class="text-rose-600 text-lg leading-none">⛔</span>
+                        <div>
+                            <h3 id="archWarningTitle" class="text-xs font-bold text-rose-900 uppercase tracking-wider">Геометрическое ограничение!</h3>
+                            <p id="archWarningText" class="text-xs text-rose-700 mt-1"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Информационный блок автосопряжения арки / подсказки угломера -->
+                <div id="archCouplingNotice" class="bg-blue-50 border border-blue-200 p-3.5 rounded-xl shadow-sm hidden">
+                    <div class="flex items-start gap-2">
+                        <span class="text-blue-600 text-base leading-none">ℹ️</span>
+                        <p id="archCouplingText" class="text-xs text-blue-800"></p>
+                    </div>
+                </div>
+
+                <!-- Предупреждение и секущая для острого угла -->
+                <div id="truncationSection" class="bg-amber-50 border border-amber-200 p-4 rounded-xl shadow-sm space-y-3 hidden">
+                    <div class="flex items-center gap-2">
+                        <span class="text-amber-600 text-lg">⚠️</span>
+                        <div>
+                            <h3 class="text-xs font-bold text-amber-900 uppercase tracking-wider">Острый угол (&le;30&deg;)</h3>
+                            <p class="text-[11px] text-amber-700">Угол невозможен для изготовления. Задайте длину секущей внутри изделия (вертикальной для боковых углов, горизонтальной для верхних).</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-amber-900 font-medium mb-1">Длина секущей среза в изделии (мм)</label>
+                        <input type="number" id="truncSize" value="150" step="5" class="w-full px-3 py-2 bg-white border border-amber-300 rounded-lg text-sm font-semibold outline-none">
+                    </div>
+                </div>
+
+                <!-- Результаты -->
+                <div class="bg-gradient-to-br from-blue-900 to-indigo-900 text-white p-4 rounded-xl shadow-md space-y-3">
+                    <div class="flex items-center justify-between border-b border-blue-800/80 pb-2">
+                        <span id="resultsBoxTitle" class="text-xs font-semibold text-blue-200 uppercase tracking-wider">Габариты изделия (Рамы)</span>
+                        <span class="text-xs bg-blue-500/30 px-2 py-0.5 rounded text-blue-200">Итого</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-2 text-sm" id="resultsMetrics"></div>
+
+                    <div id="anglesResultList" class="border-t border-blue-800/80 pt-2 grid grid-cols-2 gap-1.5 text-xs text-blue-200"></div>
+                </div>
+
+            </div>
+
+            <!-- Область визуализации -->
+            <div class="lg:col-span-7 bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col justify-between relative min-h-[540px]">
+                
+                <!-- Легенда -->
+                <div id="canvasLegendBar" class="flex items-center justify-between border-b pb-3 mb-2 text-xs flex-wrap gap-2">
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-4 h-1 bg-slate-800 rounded"></div>
+                            <span id="legendPrimaryText" class="font-medium text-slate-700">Проем (Стена)</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <div class="w-4 h-1 border-t-2 border-dashed border-blue-600"></div>
+                            <span id="legendSecondaryText" class="font-medium text-blue-600">Изделие (Рама)</span>
+                        </div>
+                        <div id="legendSecant" class="flex items-center gap-1.5 hidden">
+                            <div class="w-4 h-1 bg-amber-500 rounded"></div>
+                            <span class="font-medium text-amber-700">Секущая</span>
+                        </div>
+                    </div>
+                    <span id="legendRightNote" class="text-slate-400">Все прямые стороны, привязки X и радиусы снаружи</span>
+                </div>
+
+                <!-- Холст SVG -->
+                <div class="flex-1 flex items-center justify-center relative w-full h-full min-h-[450px]">
+                    <svg id="canvas" class="w-full h-full max-h-[540px] overflow-visible" viewBox="0 0 780 620"></svg>
+                </div>
+
+                <!-- Справка снизу -->
+                <div id="canvasFooterHint" class="text-[11px] text-slate-400 text-center border-t pt-2 mt-2">
+                    Все вертикальные, горизонтальные стороны и смещения вершин по оси X образмериваются снаружи контура.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно-подсказка для установки на iOS (iPhone / iPad) или при ручной установке -->
+    <div id="iosInstallModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-xl border border-slate-200 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                    <span>📲</span> Установка на телефон
+                </h3>
+                <button onclick="closeInstallModal()" class="text-slate-400 hover:text-slate-600 text-lg leading-none">&times;</button>
+            </div>
+            <div id="installModalBody" class="text-xs text-slate-600 space-y-3 leading-relaxed">
+                <p>Чтобы установить калькулятор на рабочий стол для работы <b>без интернета</b>:</p>
+                <ol class="list-decimal list-inside space-y-2 font-medium text-slate-800">
+                    <li>Нажмите кнопку <b>«Поделиться»</b> <span class="inline-block px-1.5 py-0.5 bg-slate-100 rounded border text-[11px]">⬆️</span> в нижней или верхней панели браузера.</li>
+                    <li>Выберите пункт <b>«На экран „Домой“»</b> (или <b>«Установить приложение»</b> в меню браузера).</li>
+                </ol>
+            </div>
+            <button onclick="closeInstallModal()" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition">
+                Понятно
+            </button>
+        </div>
+    </div>
+
+    <!-- Модальное окно подписки и управления доступом (Paywall: 30 дней триал -> PRO или Реклама) -->
+    <div id="paywallModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="modal-card space-y-4">
+            <div class="flex items-center justify-between border-b pb-3">
+                <div>
+                    <h3 class="font-bold text-slate-900 text-base flex items-center gap-2">
+                        <span>📐</span> Форма Окон PRO
+                    </h3>
+                    <p id="paywallSubtitle" class="text-xs text-slate-500 mt-0.5">Статус лицензии и параметры доступа</p>
+                </div>
+                <button onclick="closePaywallModal()" class="text-slate-400 hover:text-slate-600 text-lg leading-none">&times;</button>
+            </div>
+
+            <!-- Блок текущего статуса -->
+            <div id="paywallStatusBox" class="p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-slate-800 space-y-1"></div>
+
+            <!-- Тарифы и преимущества PRO (3 тарифа: 1 мес / 6 мес -20% / 1 год -30%) -->
+            <div class="border border-slate-200 rounded-xl p-3.5 space-y-3 bg-slate-50">
+                <div class="flex items-center justify-between">
+                    <span class="font-bold text-xs text-slate-900 uppercase tracking-wider">Выберите тариф Форма Окон PRO</span>
+                    <span class="text-[11px] font-semibold text-emerald-600">Выгода до 30%</span>
+                </div>
+
+                <!-- Сетка из 3 тарифов -->
+                <div class="grid grid-cols-3 gap-2 pt-1">
+                    <!-- 1 месяц -->
+                    <div id="planCard_1m" onclick="selectSubscriptionPlan('1m')" class="plan-card">
+                        <div class="text-[11px] font-bold text-slate-700">1 месяц</div>
+                        <div class="text-sm font-bold text-slate-900 mt-0.5">699 ₽</div>
+                        <div class="text-[10px] text-slate-400">699 ₽ / мес</div>
+                    </div>
+
+                    <!-- 6 месяцев (-20%) -->
+                    <div id="planCard_6m" onclick="selectSubscriptionPlan('6m')" class="plan-card active">
+                        <span class="plan-discount-badge hit">ХИТ −20%</span>
+                        <div class="text-[11px] font-bold text-slate-700">6 месяцев</div>
+                        <div class="text-sm font-bold text-blue-700 mt-0.5">3 350 ₽</div>
+                        <div class="text-[10px] text-slate-500 font-medium">558 ₽ / мес</div>
+                    </div>
+
+                    <!-- 12 месяцев (-30%) -->
+                    <div id="planCard_12m" onclick="selectSubscriptionPlan('12m')" class="plan-card">
+                        <span class="plan-discount-badge">−30% ГОД</span>
+                        <div class="text-[11px] font-bold text-slate-700">1 год</div>
+                        <div class="text-sm font-bold text-slate-900 mt-0.5">5 870 ₽</div>
+                        <div class="text-[10px] text-emerald-600 font-semibold">489 ₽ / мес</div>
+                    </div>
+                </div>
+
+                <ul class="text-xs text-slate-600 space-y-1 list-inside pt-0.5">
+                    <li>✅ Все 14 инженерных шаблонов, включая Арки и Угломер эркера</li>
+                    <li>✅ Мгновенный векторный экспорт чертежа А4 в PDF без рекламы</li>
+                    <li>✅ Полная работа офлайн на объектах без мобильной связи</li>
+                </ul>
+
+                <div class="pt-1 flex flex-col gap-2">
+                    <button id="paySelectedPlanBtn" onclick="openPaymentLink()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm transition">
+                        💳 Оплатить 6 месяцев — 3 350 ₽ (экономия 844 ₽)
+                    </button>
+                    <div class="flex gap-2">
+                        <input type="text" id="proActivationCode" placeholder="Код активации (напр. FORMA-6M)" class="flex-1 px-3 py-1.5 border border-slate-300 rounded-lg text-xs outline-none bg-white">
+                        <button onclick="activateProByCode()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg transition">
+                            Активировать
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Альтернатива: Продолжить бесплатно за просмотр рекламы (показывается, когда триал истек) -->
+            <div id="rewardAdOptionBox" class="hidden border border-amber-300 bg-amber-50 rounded-xl p-3 space-y-2">
+                <div class="text-xs font-bold text-amber-900">Нет подписки? Используйте бесплатно с рекламой</div>
+                <p class="text-[11px] text-amber-700">Посмотрите короткий рекламный ролик (5 сек), чтобы разблокировать все шаблоны и экспорт в PDF на текущую сессию.</p>
+                <button onclick="startRewardedAd()" class="w-full py-2 bg-amber-500 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition">
+                    🎬 Посмотреть рекламу (5 сек) и продолжить бесплатно
+                </button>
+            </div>
+
+            <!-- Панель разработчика для тестирования режимов (Триал / Истекший триал / PRO) -->
+            <div class="border-t pt-2.5 flex items-center justify-between text-[11px] text-slate-400">
+                <span>Тест режимов:</span>
+                <div class="flex gap-2">
+                    <button onclick="devSetMode('trial')" class="text-blue-600 font-semibold">Сбросить (Триал 30д)</button>
+                    <span>•</span>
+                    <button onclick="devSetMode('expired')" class="text-rose-600 font-semibold">Тест «30 дней прошло»</button>
+                    <span>•</span>
+                    <button onclick="devSetMode('pro')" class="text-emerald-600 font-semibold">Тест «PRO»</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно просмотра рекламного ролика (Rewarded Ad — 5 секунд) -->
+    <div id="rewardAdModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="modal-card space-y-4 text-center">
+            <div class="flex items-center justify-between border-b pb-2">
+                <span class="px-2 py-0.5 bg-amber-500 text-white text-[10px] font-bold rounded uppercase">Рекламная пауза</span>
+                <span id="rewardTimerBadge" class="text-xs font-bold text-slate-700">Осталось: 5 сек</span>
+            </div>
+            <div class="p-5 rounded-xl bg-slate-100 border border-slate-200 space-y-2">
+                <div class="text-2xl">🪟 🛠️</div>
+                <div class="text-sm font-bold text-slate-900">Место для рекламного блока РСЯ / Партнеров</div>
+                <p class="text-xs text-slate-600">Здесь отображается полноэкранный блок Рекламной сети Яндекса или спецпредложение от поставщиков профильных систем и фурнитуры.</p>
+            </div>
+            <button id="rewardAdClaimBtn" onclick="finishRewardedAd()" disabled class="w-full py-2.5 bg-slate-800 text-white text-xs font-bold rounded-lg transition" style="opacity: 0.5;">
+                Подождите 5 сек...
+            </button>
+        </div>
+    </div>
+
+    <!-- ПЕЧАТНЫЙ ЛИСТ А4 (Чертеж с максимальным заполнением + Инженерный штамп с таблицами) -->
+    <div id="printSheetA4">
+        <!-- Верхняя шапка чертежа -->
+        <div class="border-b-2 border-slate-900 px-3 py-2 flex items-center justify-between bg-slate-50 shrink-0">
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-xs tracking-wide uppercase">Форма Окон • Карта замера изделия</span>
+                <span id="printHeaderTemplate" class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200"></span>
+                <span id="printFreeWatermark" class="hidden text-[10px] font-semibold text-slate-500">(Бесплатная версия)</span>
+            </div>
+            <div id="printLegendRight" class="flex items-center gap-3 text-[10px]">
+                <span class="flex items-center gap-1"><span class="inline-block w-3 h-0.5 bg-slate-900"></span> <b>Пр:</b> Проем (мм)</span>
+                <span class="flex items-center gap-1"><span class="inline-block w-3 h-0.5 border-b-2 border-dashed border-blue-600"></span> <b class="text-blue-700">Изд:</b> Изделие (мм)</span>
+            </div>
+        </div>
+
+        <!-- Область чертежа (автоматически заполняет максимум листа А4) -->
+        <div class="flex-1 w-full flex items-center justify-center p-2 overflow-hidden relative" style="min-height: 185mm;">
+            <svg id="printCanvas" class="w-full h-full" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+
+        <!-- Инженерный штамп и табличные данные внизу листа А4 -->
+        <div class="border-t-2 border-slate-900 shrink-0">
+            <div class="grid grid-cols-12">
+                <!-- Таблица 1: Замеры проема и нахлесты -->
+                <div class="col-span-5 border-r border-slate-800">
+                    <table class="stamp-table">
+                        <thead>
+                            <tr>
+                                <th colspan="2" id="stampTable1Header">1. Параметры проема и монтажные зазоры</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stampOpeningTable"></tbody>
+                    </table>
+                </div>
+
+                <!-- Таблица 2: Спецификация готового изделия и углы -->
+                <div class="col-span-7">
+                    <table class="stamp-table">
+                        <thead>
+                            <tr>
+                                <th colspan="4" id="stampTable2Header">2. Расчетные размеры готового изделия (рамы)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stampProductTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Основная надпись (нижний штамп) -->
+            <table class="stamp-table" style="border-top: 2px solid #0f172a;">
+                <tbody>
+                    <tr>
+                        <td class="w-[16%] bg-slate-50 font-bold text-slate-600">Заказ №</td>
+                        <td class="w-[22%] font-bold text-slate-900" id="stampOrderNum">—</td>
+                        <td class="w-[16%] bg-slate-50 font-bold text-slate-600">Объект / Клиент</td>
+                        <td class="w-[26%] font-bold text-slate-900" id="stampClientObj">—</td>
+                        <td class="w-[8%] bg-slate-50 font-bold text-slate-600 text-center">Лист</td>
+                        <td class="w-[12%] font-bold text-center">А4 (1/1)</td>
+                    </tr>
+                    <tr>
+                        <td class="bg-slate-50 font-bold text-slate-600">Шаблон</td>
+                        <td class="font-semibold text-blue-800" id="stampTemplateName">—</td>
+                        <td class="bg-slate-50 font-bold text-slate-600">Дата расчета</td>
+                        <td id="stampDate">—</td>
+                        <td class="bg-slate-50 font-bold text-slate-600 text-center">Подпись</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+
+        const templates = {
+            t1_trap_left: {
+                name: "1. Трапеция (скос слева)",
+                icon: "M 8 35 L 22 10 L 42 10 L 42 35 Z",
+                inputs: [
+                    { id: 'wB', label: 'Низ', val: 2000 },
+                    { id: 'wT', label: 'Верх', val: 1000 },
+                    { id: 'h', label: 'Высота справа (90°)', val: 600 }
+                ],
+                edges: ['left', 'top', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: d.wB - d.wT, y: d.h },
+                    { x: d.wB, y: d.h },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t2_slope_right: {
+                name: "2. Трапеция (спад вправо)",
+                icon: "M 8 10 L 42 22 L 42 35 L 8 35 Z",
+                inputs: [
+                    { id: 'wB', label: 'Низ (ширина)', val: 1500 },
+                    { id: 'hL', label: 'Высота слева', val: 1400 },
+                    { id: 'hR', label: 'Высота справа', val: 900 }
+                ],
+                edges: ['left', 'top', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: 0, y: d.hL },
+                    { x: d.wB, y: d.hR },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t3_slope_left: {
+                name: "3. Трапеция (спад влево)",
+                icon: "M 8 22 L 42 10 L 42 35 L 8 35 Z",
+                inputs: [
+                    { id: 'wB', label: 'Низ (ширина)', val: 1500 },
+                    { id: 'hL', label: 'Высота слева', val: 900 },
+                    { id: 'hR', label: 'Высота справа', val: 1400 }
+                ],
+                edges: ['left', 'top', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: 0, y: d.hL },
+                    { x: d.wB, y: d.hR },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t4_pent_right: {
+                name: "4. Скос сверху справа",
+                icon: "M 8 10 L 26 10 L 42 22 L 42 35 L 8 35 Z",
+                inputs: [
+                    { id: 'wB', label: 'Низ', val: 1600 },
+                    { id: 'wT', label: 'Верхняя полка', val: 900 },
+                    { id: 'hL', label: 'Высота слева', val: 1400 },
+                    { id: 'hR', label: 'Высота справа', val: 900 }
+                ],
+                edges: ['left', 'top', 'right', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: 0, y: d.hL },
+                    { x: d.wT, y: d.hL },
+                    { x: d.wB, y: d.hR },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t5_pent_left: {
+                name: "5. Скос сверху слева",
+                icon: "M 8 22 L 24 10 L 42 10 L 42 35 L 8 35 Z",
+                inputs: [
+                    { id: 'wB', label: 'Низ', val: 1600 },
+                    { id: 'wT', label: 'Верхняя полка', val: 900 },
+                    { id: 'hL', label: 'Высота слева', val: 900 },
+                    { id: 'hR', label: 'Высота справа', val: 1400 }
+                ],
+                edges: ['left', 'left', 'top', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: 0, y: d.hL },
+                    { x: d.wB - d.wT, y: d.hR },
+                    { x: d.wB, y: d.hR },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t6_house: {
+                name: "6. Пятиугольная (Домик)",
+                icon: "M 8 20 L 25 7 L 42 20 L 42 35 L 8 35 Z",
+                showPeakX: true,
+                peakIdx: 2,
+                inputs: [
+                    { id: 'wB', label: 'Низ (ширина)', val: 1500 },
+                    { id: 'xPeak', label: 'До вершины по X (слева)', val: 750 },
+                    { id: 'hSideL', label: 'Высота боковая слева', val: 1000 },
+                    { id: 'hSideR', label: 'Высота боковая справа', val: 1000 },
+                    { id: 'hPeak', label: 'Высота в коньке', val: 1550 }
+                ],
+                edges: ['left', 'top', 'top', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: 0, y: d.hSideL },
+                    { x: d.xPeak, y: d.hPeak },
+                    { x: d.wB, y: d.hSideR },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t7_trap: {
+                name: "7. Трапеция",
+                icon: "M 14 10 L 36 10 L 44 35 L 6 35 Z",
+                showTopBaseX: true,
+                topLeftIdx: 1,
+                topRightIdx: 2,
+                inputs: [
+                    { id: 'wB', label: 'Низ (ширина)', val: 1800 },
+                    { id: 'h', label: 'Высота', val: 1200 },
+                    { id: 'xTopL', label: 'До верх. лев. угла по X', val: 450 },
+                    { id: 'xTopR', label: 'До верх. прав. угла по X', val: 1350 }
+                ],
+                edges: ['left', 'top', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: d.xTopL, y: d.h },
+                    { x: d.xTopR, y: d.h },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t8_hex_tower: {
+                name: "8. Шестиугольная трапеция",
+                icon: "M 8 24 L 16 10 L 34 10 L 42 24 L 42 35 L 8 35 Z",
+                showTopBaseX: true,
+                topLeftIdx: 2,
+                topRightIdx: 3,
+                inputs: [
+                    { id: 'wB', label: 'Низ (ширина)', val: 1600 },
+                    { id: 'h', label: 'Высота общая', val: 1400 },
+                    { id: 'xTopL', label: 'До верх. лев. угла по X', val: 400 },
+                    { id: 'xTopR', label: 'До верх. прав. угла по X', val: 1200 },
+                    { id: 'hSideL', label: 'Высота бока слева', val: 600 },
+                    { id: 'hSideR', label: 'Высота бока справа', val: 600 }
+                ],
+                edges: ['left', 'left', 'top', 'right', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: 0, y: d.hSideL },
+                    { x: d.xTopL, y: d.h },
+                    { x: d.xTopR, y: d.h },
+                    { x: d.wB, y: d.hSideR },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t9_tri: {
+                name: "9. Треугольник",
+                icon: "M 25 7 L 43 35 L 7 35 Z",
+                showPeakX: true,
+                peakIdx: 1,
+                inputs: [
+                    { id: 'wB', label: 'Основание (низ)', val: 2000 },
+                    { id: 'xPeak', label: 'До вершины по X (слева)', val: 1000 },
+                    { id: 'h', label: 'Высота', val: 550 }
+                ],
+                edges: ['left', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: d.xPeak, y: d.h },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t10_tri_left: {
+                name: "10. Треугольник (90° слева)",
+                icon: "M 8 7 L 42 35 L 8 35 Z",
+                inputs: [
+                    { id: 'wB', label: 'Основание (низ)', val: 1800 },
+                    { id: 'h', label: 'Высота слева (90°)', val: 500 }
+                ],
+                edges: ['left', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: 0, y: d.h },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t11_tri_right: {
+                name: "11. Треугольник (90° справа)",
+                icon: "M 42 7 L 42 35 L 8 35 Z",
+                inputs: [
+                    { id: 'wB', label: 'Основание (низ)', val: 1800 },
+                    { id: 'h', label: 'Высота справа (90°)', val: 500 }
+                ],
+                edges: ['left', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: d.wB, y: d.h },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t12_arch: {
+                name: "12. Арочный проем",
+                icon: "M 9 35 L 9 18 A 16 14 0 0 1 41 18 L 41 35 Z",
+                isArch: true,
+                inputs: [
+                    { id: 'wB', label: 'Ширина проема (низ)', val: 1200 },
+                    { id: 'hSide', label: 'Высота прямых боков', val: 1100 },
+                    { id: 'hTotal', label: 'Высота общая (вверху)', val: 1700 }
+                ]
+            },
+            t13_trap_right: {
+                name: "13. Трапеция (скос справа)",
+                icon: "M 8 10 L 26 10 L 42 35 L 8 35 Z",
+                inputs: [
+                    { id: 'wB', label: 'Низ', val: 2200 },
+                    { id: 'wT', label: 'Верх', val: 1000 },
+                    { id: 'h', label: 'Высота слева (90°)', val: 600 }
+                ],
+                edges: ['left', 'top', 'right', 'bottom'],
+                getP: (d) => [
+                    { x: 0, y: 0 },
+                    { x: 0, y: d.h },
+                    { x: d.wT, y: d.h },
+                    { x: d.wB, y: 0 }
+                ]
+            },
+            t14_goniometer: {
+                name: "14. Угломер (между окнами)",
+                icon: "M 7 32 L 25 10 L 43 32 M 18 18 A 10 10 0 0 0 32 18 M 7 32 L 43 32",
+                isGoniometer: true,
+                inputs: [
+                    { id: 'sideA', label: 'Сторона A (левое плечо, мм)', val: 1000 },
+                    { id: 'sideB', label: 'Сторона B (правое плечо, мм)', val: 1000 },
+                    { id: 'sideC', label: 'Диагональ C (между точками, мм)', val: 1414 }
+                ]
+            }
+        };
+
+        let currentKey = 't14_goniometer';
+        let currentStampData = { openingRows: [], productRows: [] };
+
+        // Шаблоны, требующие PRO или просмотра рекламы после окончания 30-дневного триала
+        const PRO_TEMPLATE_KEYS = ['t6_house', 't8_hex_tower', 't12_arch', 't14_goniometer'];
+
+        function isProTemplateLocked(key) {
+            if (!PRO_TEMPLATE_KEYS.includes(key)) return false;
+            const st = getLicenseState();
+            return !st.hasFullAccess;
+        }
+
+        function renderTemplateGrid() {
+            const grid = document.getElementById('templateGrid');
+            grid.innerHTML = '';
+            for (const [key, tmpl] of Object.entries(templates)) {
+                const activeClass = key === currentKey ? 'active' : 'bg-white border-slate-200';
+                const badgeColor = tmpl.isGoniometer ? 'text-indigo-700' : 'text-slate-700';
+                const locked = isProTemplateLocked(key);
+                const lockBadge = locked ? `<span class="pro-lock-tag">PRO / Реклама</span>` : '';
+                grid.innerHTML += `
+                    <div onclick="selectTemplate('${key}')" class="template-card relative cursor-pointer p-2 rounded-xl border-2 hover:border-blue-400 flex flex-col items-center justify-center ${activeClass}">
+                        ${lockBadge}
+                        <svg class="w-11 h-9 mb-1 ${badgeColor}" viewBox="0 0 50 40">
+                            <path d="${tmpl.icon}" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+                        </svg>
+                        <span class="text-[10px] font-semibold text-center ${badgeColor} leading-tight">${tmpl.name}</span>
+                    </div>
+                `;
+            }
+        }
+
+        function selectTemplate(key) {
+            if (isProTemplateLocked(key)) {
+                pendingRewardAction = () => {
+                    currentKey = key;
+                    renderTemplateGrid();
+                    initInputs();
+                    update();
+                };
+                openPaywallModal('template');
+                return;
+            }
+            currentKey = key;
+            renderTemplateGrid();
+            initInputs();
+            update();
+        }
+
+        function initInputs() {
+            const tmpl = templates[currentKey];
+            document.getElementById('activeTemplateName').innerText = tmpl.name;
+            document.getElementById('section1Title').innerText = tmpl.isGoniometer ? '1. Замер сторон треугольника (мм)' : '1. Размеры проема (мм)';
+            document.getElementById('offsetsCard').classList.toggle('hidden', !!tmpl.isGoniometer);
+            document.getElementById('resultsBoxTitle').innerText = tmpl.isGoniometer ? 'Расчет углов примыкания окон' : 'Габариты изделия (Рамы)';
+            document.getElementById('labelOffTop').innerText = tmpl.isArch ? 'Сверху (по дуге арки)' : 'Сверху';
+
+            if (tmpl.isGoniometer) {
+                document.getElementById('legendPrimaryText').innerText = 'Плечи окон A и B (вид сверху)';
+                document.getElementById('legendSecondaryText').innerText = 'Базовая диагональ C (рулетка)';
+                document.getElementById('legendRightNote').innerText = 'Расчет по теореме косинусов (по 3 сторонам)';
+                document.getElementById('canvasFooterHint').innerText = 'Отложите от вершины угла расстояния A и B вдоль окон и измерьте расстояние C между точками.';
+            } else {
+                document.getElementById('legendPrimaryText').innerText = 'Проем (Стена)';
+                document.getElementById('legendSecondaryText').innerText = 'Изделие (Рама)';
+                document.getElementById('legendRightNote').innerText = 'Все прямые стороны, привязки X и радиусы снаружи';
+                document.getElementById('canvasFooterHint').innerText = 'Все вертикальные, горизонтальные стороны и смещения вершин по оси X образмериваются снаружи контура.';
+            }
+
+            const container = document.getElementById('inputsContainer');
+            container.innerHTML = '';
+            tmpl.inputs.forEach((inp, idx) => {
+                const isLastOdd = (tmpl.inputs.length % 2 === 1 && idx === tmpl.inputs.length - 1);
+                const colSpan = isLastOdd ? 'col-span-2' : '';
+                container.innerHTML += `
+                    <div class="${colSpan}">
+                        <label class="block text-xs text-slate-500 mb-1">${inp.label}</label>
+                        <input type="number" id="inp_${inp.id}" value="${inp.val}" step="5" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                `;
+            });
+            document.querySelectorAll('#inputsContainer input').forEach(el => {
+                el.addEventListener('input', update);
+            });
+        }
+
+        function calcAngle(pPrev, pCurr, pNext) {
+            const v1 = { x: pPrev.x - pCurr.x, y: pPrev.y - pCurr.y };
+            const v2 = { x: pNext.x - pCurr.x, y: pNext.y - pCurr.y };
+            const dot = v1.x * v2.x + v1.y * v2.y;
+            const mag1 = Math.hypot(v1.x, v1.y);
+            const mag2 = Math.hypot(v2.x, v2.y);
+            if (mag1 * mag2 === 0) return 0;
+            const rad = Math.acos(Math.max(-1, Math.min(1, dot / (mag1 * mag2))));
+            return Math.round((rad * 180 / Math.PI) * 10) / 10;
+        }
+
+        function lineIntersection(p1, p2, p3, p4) {
+            const denom = (p1.x - p2.x) * (p3.y - p4.y) - (p1.y - p2.y) * (p3.x - p4.x);
+            if (Math.abs(denom) < 1e-9) return null;
+            const t = ((p1.x - p3.x) * (p3.y - p4.y) - (p1.y - p3.y) * (p3.x - p4.x)) / denom;
+            return {
+                x: p1.x + t * (p2.x - p1.x),
+                y: p1.y + t * (p2.y - p1.y)
+            };
+        }
+
+        function formatSign(v) {
+            return v > 0 ? `+${v} мм` : `${v} мм`;
+        }
+
+        function update() {
+            const tmpl = templates[currentKey];
+            const d = {};
+            const openingRows = [];
+            tmpl.inputs.forEach(inp => {
+                const val = parseFloat(document.getElementById(`inp_${inp.id}`).value) || 0;
+                d[inp.id] = val;
+                openingRows.push({ label: inp.label, val: `${val} мм` });
+            });
+
+            document.getElementById('archWarningSection').classList.add('hidden');
+            document.getElementById('archCouplingNotice').classList.add('hidden');
+
+            if (tmpl.isGoniometer) {
+                updateGoniometer(d, openingRows);
+                return;
+            }
+
+            const oL = parseFloat(document.getElementById('offLeft').value) || 0;
+            const oR = parseFloat(document.getElementById('offRight').value) || 0;
+            const oT = parseFloat(document.getElementById('offTop').value) || 0;
+            const oB = parseFloat(document.getElementById('offBottom').value) || 0;
+            const truncSize = parseFloat(document.getElementById('truncSize').value) || 0;
+
+            openingRows.push({
+                label: 'Смещения (Л/П/В/Н)',
+                val: `${formatSign(oL)} / ${formatSign(oR)} / ${formatSign(oT)} / ${formatSign(oB)}`
+            });
+
+            if (tmpl.isArch) {
+                updateArch(d, { oL, oR, oT, oB }, openingRows);
+                return;
+            }
+
+            const P = tmpl.getP(d);
+            const n = P.length;
+
+            const sideOffsets = { left: oL, right: oR, top: oT, bottom: oB };
+
+            const offsetLines = [];
+            for (let i = 0; i < n; i++) {
+                const pA = P[i];
+                const pB = P[(i + 1) % n];
+                const dx = pB.x - pA.x;
+                const dy = pB.y - pA.y;
+                const len = Math.hypot(dx, dy) || 1;
+
+                const nx = -dy / len;
+                const ny = dx / len;
+
+                const edgeRole = tmpl.edges[i];
+                const offVal = sideOffsets[edgeRole] !== undefined ? sideOffsets[edgeRole] : 0;
+
+                offsetLines.push({
+                    pA: { x: pA.x + nx * offVal, y: pA.y + ny * offVal },
+                    pB: { x: pB.x + nx * offVal, y: pB.y + ny * offVal }
+                });
+            }
+
+            const I = [];
+            for (let i = 0; i < n; i++) {
+                const prevLine = offsetLines[(i - 1 + n) % n];
+                const currLine = offsetLines[i];
+                const pt = lineIntersection(prevLine.pA, prevLine.pB, currLine.pA, currLine.pB);
+                I.push(pt || P[i]);
+            }
+
+            const angles = P.map((p, i) => {
+                const prev = P[(i - 1 + n) % n];
+                const next = P[(i + 1) % n];
+                return calcAngle(prev, p, next);
+            });
+
+            const minAngle = Math.min(...angles);
+            const isAcute = minAngle <= 30;
+
+            document.getElementById('truncationSection').classList.toggle('hidden', !isAcute);
+            document.getElementById('legendSecant').classList.toggle('hidden', !isAcute);
+
+            const iMinX = Math.min(...I.map(p => p.x));
+            const iMaxX = Math.max(...I.map(p => p.x));
+            const iMinY = Math.min(...I.map(p => p.y));
+            const iMaxY = Math.max(...I.map(p => p.y));
+
+            const resWB_full = Math.round(iMaxX - iMinX);
+            const resHL_full = Math.round(iMaxY - iMinY);
+
+            const slopes = [];
+            let topWidthProduct = 0;
+            let leftVertProduct = 0;
+            let rightVertProduct = 0;
+
+            for (let i = 0; i < n; i++) {
+                const pA = I[i];
+                const pB = I[(i + 1) % n];
+                const dx = Math.abs(pB.x - pA.x);
+                const dy = Math.abs(pB.y - pA.y);
+                const len = Math.round(Math.hypot(dx, dy));
+                if (dx > 1 && dy > 1) {
+                    slopes.push(len);
+                } else if (dy <= 1 && pA.y > iMinY + 1) {
+                    topWidthProduct = len;
+                } else if (dx <= 1 && dy > 1) {
+                    if (Math.abs(pA.x - iMinX) < 2) leftVertProduct = len;
+                    else rightVertProduct = len;
+                }
+            }
+
+            // Строгое схождение размерной цепочки по оси X (чтобы сумма верхних участков строго равнялась ширине низа)
+            let prodShiftL = 0, prodShiftR = 0;
+            if (tmpl.showTopBaseX) {
+                const idxL = tmpl.topLeftIdx;
+                const idxR = tmpl.topRightIdx;
+                prodShiftL = Math.round(I[idxL].x - iMinX);
+                prodShiftR = Math.round(iMaxX - I[idxR].x);
+                topWidthProduct = resWB_full - prodShiftL - prodShiftR;
+            }
+
+            let secants = [];
+            let leftCutX = iMinX;
+            let rightCutX = iMaxX;
+            let hasBottomSecant = false;
+            let topCutY = iMaxY;
+            let hasTopSecant = false;
+
+            if (isAcute && truncSize > 0) {
+                for (let i = 0; i < n; i++) {
+                    if (angles[i] <= 30) {
+                        const v = I[i];
+                        const prev = I[(i - 1 + n) % n];
+                        const next = I[(i + 1) % n];
+
+                        const isBottomVertex = Math.abs(v.y - iMinY) < 2;
+                        if (isBottomVertex && truncSize < resHL_full) {
+                            const secantTopY = iMinY + truncSize;
+                            const slopedOther = Math.abs(prev.y - v.y) > Math.abs(next.y - v.y) ? prev : next;
+                            if (Math.abs(slopedOther.y - v.y) > 1e-4) {
+                                const t = (secantTopY - v.y) / (slopedOther.y - v.y);
+                                const cutX = v.x + t * (slopedOther.x - v.x);
+                                const isRight = v.x > (iMinX + iMaxX) / 2;
+                                if (isRight) rightCutX = cutX; else leftCutX = cutX;
+                                hasBottomSecant = true;
+                                secants.push({
+                                    type: 'vertical',
+                                    p1: { x: cutX, y: iMinY },
+                                    p2: { x: cutX, y: secantTopY },
+                                    size: truncSize,
+                                    side: isRight ? 'right' : 'left'
+                                });
+                            }
+                        } else if (!isBottomVertex && truncSize < resWB_full) {
+                            const dy1 = prev.y - v.y;
+                            const dx1 = prev.x - v.x;
+                            const dy2 = next.y - v.y;
+                            const dx2 = next.x - v.x;
+                            if (dy1 < -1 && dy2 < -1) {
+                                const rate = Math.abs((dx1 / dy1) - (dx2 / dy2));
+                                if (rate > 1e-5) {
+                                    const dropY = truncSize / rate;
+                                    const cutY = v.y - dropY;
+                                    if (cutY > iMinY) {
+                                        const xA = v.x + (cutY - v.y) * (dx1 / dy1);
+                                        const xB = v.x + (cutY - v.y) * (dx2 / dy2);
+                                        topCutY = cutY;
+                                        hasTopSecant = true;
+                                        secants.push({
+                                            type: 'horizontal',
+                                            p1: { x: Math.min(xA, xB), y: cutY },
+                                            p2: { x: Math.max(xA, xB), y: cutY },
+                                            size: truncSize,
+                                            cutHeight: Math.round(cutY - iMinY)
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            const resWB_secant = Math.round(rightCutX - leftCutX);
+            const resHL_secant = Math.round(topCutY - iMinY);
+
+            let metricsHtml = '';
+            if (hasBottomSecant) {
+                metricsHtml += `
+                    <div class="col-span-2 bg-blue-950/60 p-2.5 rounded-lg border border-blue-700/50 flex justify-between items-center">
+                        <span class="text-blue-200 text-xs">Низ изделия (до секущей):</span>
+                        <div><b class="text-xl font-mono text-amber-300">${resWB_secant}</b> <span class="text-xs text-blue-300">мм</span></div>
+                    </div>
+                `;
+            }
+            if (hasTopSecant) {
+                metricsHtml += `
+                    <div class="col-span-2 bg-blue-950/60 p-2.5 rounded-lg border border-blue-700/50 flex justify-between items-center">
+                        <span class="text-blue-200 text-xs">Высота изделия (до верх. среза):</span>
+                        <div><b class="text-xl font-mono text-amber-300">${resHL_secant}</b> <span class="text-xs text-blue-300">мм</span></div>
+                    </div>
+                `;
+            }
+            metricsHtml += `
+                <div>
+                    <span class="text-blue-300 text-xs block">Ширина низа (полная):</span>
+                    <b class="text-lg font-mono">${resWB_full}</b> <span class="text-xs text-blue-300">мм</span>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Высота габаритная:</span>
+                    <b class="text-lg font-mono">${resHL_full}</b> <span class="text-xs text-blue-300">мм</span>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Горизонт. верх:</span>
+                    <b class="text-lg font-mono">${topWidthProduct > 0 ? topWidthProduct + ' мм' : '—'}</b>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Длина скоса:</span>
+                    <b class="text-lg font-mono">${slopes.length > 0 ? slopes.join(' / ') + ' мм' : '—'}</b>
+                </div>
+            `;
+            document.getElementById('resultsMetrics').innerHTML = metricsHtml;
+
+            const anglesContainer = document.getElementById('anglesResultList');
+            anglesContainer.innerHTML = angles.map((a, idx) => `
+                <div>Угол ${idx + 1}: <b class="font-mono ${a <= 30 ? 'text-amber-300' : 'text-white'}">${a}°</b></div>
+            `).join('');
+
+            const productRows = [
+                { k1: 'Ширина низа (полная)', v1: `${resWB_full} мм`, k2: 'Высота габаритная', v2: `${resHL_full} мм` },
+                { k1: 'Бок слева / справа', v1: `${leftVertProduct || '—'} / ${rightVertProduct || '—'} мм`, k2: 'Горизонт. верх', v2: topWidthProduct > 0 ? `${topWidthProduct} мм` : '—' },
+                { k1: 'Длины наклонных скосов', v1: slopes.length > 0 ? `${slopes.join(' / ')} мм` : '—', k2: 'Секущая острого угла', v2: (hasBottomSecant || hasTopSecant) ? `${truncSize} мм (габарит: ${hasBottomSecant ? resWB_secant : resHL_secant} мм)` : 'Нет' },
+                { k1: 'Углы вершин изделия', v1: angles.map((a, idx) => `У${idx + 1}:${a}°`).join(', '), k2: 'Мин. угол', v2: `${minAngle}°` }
+            ];
+            currentStampData = { openingRows, productRows };
+
+            renderPolygonSVG(P, I, angles, secants, {
+                hasBottomSecant, resWB_secant, leftCutX, rightCutX,
+                hasTopSecant, resHL_secant, topCutY,
+                iMinX, iMaxX, iMinY, iMaxY,
+                prodShiftL, prodShiftR, topWidthProduct
+            }, tmpl);
+        }
+
+        function renderPolygonSVG(P, I, angles, secants, secInfo, tmpl) {
+            const svg = document.getElementById('canvas');
+            const n = P.length;
+
+            const allX = [...P.map(p => p.x), ...I.map(p => p.x)];
+            const allY = [...P.map(p => p.y), ...I.map(p => p.y)];
+
+            const minX = Math.min(...allX);
+            const maxX = Math.max(...allX);
+            const minY = Math.min(...allY);
+            const maxY = Math.max(...allY);
+
+            const bboxW = Math.max(maxX - minX, 200);
+            const bboxH = Math.max(maxY - minY, 200);
+
+            const padX = 170;
+            const padY = 145;
+            const scale = Math.min((780 - padX * 2) / bboxW, (620 - padY * 2) / bboxH);
+
+            const toSvg = (pt) => ({
+                x: padX + (pt.x - minX) * scale,
+                y: 620 - padY - (pt.y - minY) * scale
+            });
+
+            const sP = P.map(toSvg);
+            const sI = I.map(toSvg);
+
+            const pathP = sP.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ') + ' Z';
+            const pathI = sI.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ') + ' Z';
+
+            const sAllX = [...sP.map(p => p.x), ...sI.map(p => p.x)];
+            const sAllY = [...sP.map(p => p.y), ...sI.map(p => p.y)];
+            const boxLeft = Math.min(...sAllX);
+            const boxRight = Math.max(...sAllX);
+            const boxTop = Math.min(...sAllY);
+            const boxBottom = Math.max(...sAllY);
+
+            let dimsHtml = '';
+
+            function drawHorizDim(x1, y1, x2, y2, dimY, text, color, isProduct) {
+                const xa = Math.min(x1, x2);
+                const xb = Math.max(x1, x2);
+                if (xb - xa < 2) return '';
+                const midX = (xa + xb) / 2;
+                const dashColor = isProduct ? '#93c5fd' : '#64748b';
+                const marker = isProduct ? 'url(#arrow-blue)' : 'url(#arrow-black)';
+                const extSign = dimY > Math.max(y1, y2) ? 5 : -5;
+                const boxW = Math.max(text.length * 6.2 + 8, 54);
+                return `
+                    <line x1="${x1}" y1="${y1}" x2="${x1}" y2="${dimY + extSign}" stroke="${dashColor}" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${x2}" y1="${y2}" x2="${x2}" y2="${dimY + extSign}" stroke="${dashColor}" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${xa}" y1="${dimY}" x2="${xb}" y2="${dimY}" stroke="${color}" stroke-width="${isProduct ? 1.5 : 1.2}" marker-start="${marker}" marker-end="${marker}"/>
+                    <rect x="${midX - boxW / 2}" y="${dimY - 9}" width="${boxW}" height="18" fill="white" opacity="0.92"/>
+                    <text x="${midX}" y="${dimY + 4}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="${color}">${text}</text>
+                `;
+            }
+
+            function drawVertDim(x1, y1, x2, y2, dimX, text, color, isProduct) {
+                const ya = Math.min(y1, y2);
+                const yb = Math.max(y1, y2);
+                if (yb - ya < 2) return '';
+                const midY = (ya + yb) / 2;
+                const dashColor = isProduct ? '#93c5fd' : '#64748b';
+                const marker = isProduct ? 'url(#arrow-blue)' : 'url(#arrow-black)';
+                const extSign = dimX < Math.min(x1, x2) ? -5 : 5;
+                const boxH = Math.max(text.length * 6.2 + 8, 60);
+                return `
+                    <line x1="${x1}" y1="${y1}" x2="${dimX + extSign}" y2="${y1}" stroke="${dashColor}" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${x2}" y1="${y2}" x2="${dimX + extSign}" y2="${y2}" stroke="${dashColor}" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${dimX}" y1="${yb}" x2="${dimX}" y2="${ya}" stroke="${color}" stroke-width="${isProduct ? 1.5 : 1.2}" marker-start="${marker}" marker-end="${marker}"/>
+                    <rect x="${dimX - 9}" y="${midY - boxH / 2}" width="18" height="${boxH}" fill="white" opacity="0.92"/>
+                    <text x="${dimX}" y="${midY}" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 ${dimX} ${midY})" font-size="10.5" font-weight="bold" fill="${color}">${text}</text>
+                `;
+            }
+
+            function drawSlopedLabels(spA, spB, lenP, lenI) {
+                const midX = (spA.x + spB.x) / 2;
+                const midY = (spA.y + spB.y) / 2;
+                let ang = Math.atan2(spB.y - spA.y, spB.x - spA.x) * 180 / Math.PI;
+                if (ang > 90) ang -= 180;
+                if (ang < -90) ang += 180;
+                const labelText = `Пр:${lenP} / Изд:${lenI}`;
+                const boxW = labelText.length * 5.6 + 10;
+                return `
+                    <g transform="translate(${midX}, ${midY}) rotate(${ang})">
+                        <rect x="${-boxW / 2}" y="-19" width="${boxW}" height="15" rx="3" fill="white" opacity="0.9" stroke="#cbd5e1" stroke-width="0.8"/>
+                        <text x="0" y="-8" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#1e293b">${labelText}</text>
+                    </g>
+                `;
+            }
+
+            const pMinY_real = Math.min(...P.map(p => p.y));
+            const pMaxY_real = Math.max(...P.map(p => p.y));
+            const pMinX_real = Math.min(...P.map(p => p.x));
+            const pMaxX_real = Math.max(...P.map(p => p.x));
+
+            let hasLeftVertEdge = false;
+            let hasRightVertEdge = false;
+            let leftEdgeMaxY = 0;
+
+            for (let i = 0; i < n; i++) {
+                const next = (i + 1) % n;
+                const pA = P[i], pB = P[next];
+                const iA = I[i], iB = I[next];
+                const spA = sP[i], spB = sP[next];
+                const siA = sI[i], siB = sI[next];
+
+                const dx = Math.abs(pB.x - pA.x);
+                const dy = Math.abs(pB.y - pA.y);
+
+                const lenP = Math.round(Math.hypot(pB.x - pA.x, pB.y - pA.y));
+                const lenI = Math.round(Math.hypot(iB.x - iA.x, iB.y - iA.y));
+
+                if (dy < 1e-3 && dx > 1) {
+                    if (Math.abs(pA.y - pMinY_real) < 2) {
+                        dimsHtml += drawHorizDim(spA.x, spA.y, spB.x, spB.y, boxBottom + 26, `Пр: ${lenP} мм`, '#334155', false);
+                        dimsHtml += drawHorizDim(siA.x, siA.y, siB.x, siB.y, boxBottom + 54, `Изд: ${lenI} мм`, '#2563eb', true);
+                    } else if (!tmpl.showTopBaseX) {
+                        dimsHtml += drawHorizDim(spA.x, spA.y, spB.x, spB.y, boxTop - 26, `Пр: ${lenP} мм`, '#334155', false);
+                        dimsHtml += drawHorizDim(siA.x, siA.y, siB.x, siB.y, boxTop - 54, `Изд: ${lenI} мм`, '#2563eb', true);
+                    }
+                } else if (dx < 1e-3 && dy > 1) {
+                    if (Math.abs(pA.x - pMinX_real) < 2) {
+                        hasLeftVertEdge = true;
+                        leftEdgeMaxY = Math.max(pA.y, pB.y);
+                        dimsHtml += drawVertDim(spA.x, spA.y, spB.x, spB.y, boxLeft - 28, `Пр: ${lenP} мм`, '#334155', false);
+                        dimsHtml += drawVertDim(siA.x, siA.y, siB.x, siB.y, boxLeft - 58, `Изд: ${lenI} мм`, '#2563eb', true);
+                    } else {
+                        hasRightVertEdge = true;
+                        dimsHtml += drawVertDim(spA.x, spA.y, spB.x, spB.y, boxRight + 28, `Пр: ${lenP} мм`, '#334155', false);
+                        dimsHtml += drawVertDim(siA.x, siA.y, siB.x, siB.y, boxRight + 58, `Изд: ${lenI} мм`, '#2563eb', true);
+                    }
+                } else if (dx > 1 && dy > 1) {
+                    dimsHtml += drawSlopedLabels(siA, siB, lenP, lenI);
+                }
+            }
+
+            if (tmpl.showPeakX) {
+                const pkIdx = tmpl.peakIdx;
+                const pLeftRef = sP[0];
+                const pPeakPt = sP[pkIdx];
+                const iLeftRef = sI[0];
+                const iPeakPt = sI[pkIdx];
+
+                const xPeakOpen = Math.round(P[pkIdx].x - P[0].x);
+                const xPeakProd = Math.round(I[pkIdx].x - I[0].x);
+
+                dimsHtml += drawHorizDim(pLeftRef.x, pPeakPt.y, pPeakPt.x, pPeakPt.y, boxTop - 26, `Пр X: ${xPeakOpen} мм`, '#334155', false);
+                dimsHtml += drawHorizDim(iLeftRef.x, iPeakPt.y, iPeakPt.x, iPeakPt.y, boxTop - 54, `Изд X: ${xPeakProd} мм`, '#2563eb', true);
+            }
+
+            if (tmpl.showTopBaseX) {
+                const idxL = tmpl.topLeftIdx;
+                const idxR = tmpl.topRightIdx;
+                const idxRightBot = n - 1;
+
+                const openFullW = Math.round(P[idxRightBot].x - P[0].x);
+                const openShiftL = Math.round(P[idxL].x - P[0].x);
+                const openShiftR = Math.round(P[idxRightBot].x - P[idxR].x);
+                const openTopW = openFullW - openShiftL - openShiftR;
+
+                if (openShiftL > 0) {
+                    dimsHtml += drawHorizDim(sP[0].x, sP[idxL].y, sP[idxL].x, sP[idxL].y, boxTop - 26, `Пр Xл: ${openShiftL}`, '#334155', false);
+                }
+                dimsHtml += drawHorizDim(sP[idxL].x, sP[idxL].y, sP[idxR].x, sP[idxR].y, boxTop - 26, `Пр верх: ${openTopW}`, '#334155', false);
+                if (openShiftR > 0) {
+                    dimsHtml += drawHorizDim(sP[idxR].x, sP[idxR].y, sP[idxRightBot].x, sP[idxR].y, boxTop - 26, `Пр Xп: ${openShiftR}`, '#334155', false);
+                }
+
+                const prodShiftL = secInfo.prodShiftL;
+                const prodTopW = secInfo.topWidthProduct;
+                const prodShiftR = secInfo.prodShiftR;
+
+                const sI_leftMostX = Math.min(...sI.map(p => p.x));
+                const sI_rightMostX = Math.max(...sI.map(p => p.x));
+
+                if (prodShiftL > 0) {
+                    dimsHtml += drawHorizDim(sI_leftMostX, sI[idxL].y, sI[idxL].x, sI[idxL].y, boxTop - 54, `Изд Xл: ${prodShiftL}`, '#2563eb', true);
+                }
+                dimsHtml += drawHorizDim(sI[idxL].x, sI[idxL].y, sI[idxR].x, sI[idxR].y, boxTop - 54, `Изд верх: ${prodTopW}`, '#2563eb', true);
+                if (prodShiftR > 0) {
+                    dimsHtml += drawHorizDim(sI[idxR].x, sI[idxR].y, sI_rightMostX, sI[idxR].y, boxTop - 54, `Изд Xп: ${prodShiftR}`, '#2563eb', true);
+                }
+            }
+
+            const totalH_P = Math.round(pMaxY_real - pMinY_real);
+            const totalH_I = Math.round(secInfo.iMaxY - secInfo.iMinY);
+            if (!hasLeftVertEdge && !hasRightVertEdge) {
+                const topIdxP = P.reduce((best, p, idx) => p.y > P[best].y ? idx : best, 0);
+                const topIdxI = I.reduce((best, p, idx) => p.y > I[best].y ? idx : best, 0);
+                dimsHtml += drawVertDim(sP[0].x, boxBottom, sP[topIdxP].x, sP[topIdxP].y, boxLeft - 28, `Пр: ${totalH_P} мм`, '#334155', false);
+                dimsHtml += drawVertDim(sI[0].x, sI[0].y, sI[topIdxI].x, sI[topIdxI].y, boxLeft - 58, `Изд: ${totalH_I} мм`, '#2563eb', true);
+            } else if (hasLeftVertEdge && (pMaxY_real - leftEdgeMaxY > 5) && hasRightVertEdge) {
+                const topIdxP = P.reduce((best, p, idx) => p.y > P[best].y ? idx : best, 0);
+                const topIdxI = I.reduce((best, p, idx) => p.y > I[best].y ? idx : best, 0);
+                dimsHtml += drawVertDim(sP[0].x, sP[0].y, sP[topIdxP].x, sP[topIdxP].y, boxLeft - 90, `Пр общ: ${totalH_P} мм`, '#334155', false);
+                dimsHtml += drawVertDim(sI[0].x, sI[0].y, sI[topIdxI].x, sI[topIdxI].y, boxLeft - 118, `Изд общ: ${totalH_I} мм`, '#2563eb', true);
+            }
+
+            let secantSvgHtml = '';
+            if (secants.length > 0) {
+                secants.forEach(sec => {
+                    const sp1 = toSvg(sec.p1);
+                    const sp2 = toSvg(sec.p2);
+                    secantSvgHtml += `
+                        <line x1="${sp1.x}" y1="${sp1.y}" x2="${sp2.x}" y2="${sp2.y}" stroke="#d97706" stroke-width="3" stroke-dasharray="3 3" />
+                        <circle cx="${sp1.x}" cy="${sp1.y}" r="3.5" fill="#d97706" />
+                        <circle cx="${sp2.x}" cy="${sp2.y}" r="3.5" fill="#d97706" />
+                    `;
+                    if (sec.type === 'vertical') {
+                        const offX = sec.side === 'right' ? -8 : 8;
+                        const anchor = sec.side === 'right' ? 'end' : 'start';
+                        secantSvgHtml += `<text x="${sp2.x + offX}" y="${(sp1.y + sp2.y) / 2}" font-size="10" font-weight="bold" fill="#b45309" text-anchor="${anchor}">Срез: ${sec.size} мм</text>`;
+                    } else {
+                        secantSvgHtml += `<text x="${(sp1.x + sp2.x) / 2}" y="${sp1.y + 14}" font-size="10" font-weight="bold" fill="#b45309" text-anchor="middle">Срез: ${sec.size} мм</text>`;
+                    }
+                });
+
+                if (secInfo.hasBottomSecant) {
+                    const sCutL = toSvg({ x: secInfo.leftCutX, y: secInfo.iMinY });
+                    const sCutR = toSvg({ x: secInfo.rightCutX, y: secInfo.iMinY });
+                    const dimY = boxBottom + 82;
+                    const midX = (sCutL.x + sCutR.x) / 2;
+                    dimsHtml += `
+                        <line x1="${sCutL.x}" y1="${sCutL.y}" x2="${sCutL.x}" y2="${dimY + 5}" stroke="#fcd34d" stroke-width="1" stroke-dasharray="2 2"/>
+                        <line x1="${sCutR.x}" y1="${sCutR.y}" x2="${sCutR.x}" y2="${dimY + 5}" stroke="#fcd34d" stroke-width="1" stroke-dasharray="2 2"/>
+                        <line x1="${sCutL.x}" y1="${dimY}" x2="${sCutR.x}" y2="${dimY}" stroke="#d97706" stroke-width="1.5" marker-start="url(#arrow-amber)" marker-end="url(#arrow-amber)"/>
+                        <rect x="${midX - 58}" y="${dimY - 9}" width="116" height="18" fill="white" opacity="0.92"/>
+                        <text x="${midX}" y="${dimY + 4}" text-anchor="middle" font-size="11" font-weight="bold" fill="#d97706">До сеч: ${secInfo.resWB_secant} мм</text>
+                    `;
+                }
+
+                if (secInfo.hasTopSecant) {
+                    const sCutTop = toSvg({ x: secInfo.iMinX, y: secInfo.topCutY });
+                    const sBot = toSvg({ x: secInfo.iMinX, y: secInfo.iMinY });
+                    const dimX = boxRight + (hasRightVertEdge ? 88 : 28);
+                    const midY = (sCutTop.y + sBot.y) / 2;
+                    dimsHtml += `
+                        <line x1="${boxRight}" y1="${sBot.y}" x2="${dimX + 5}" y2="${sBot.y}" stroke="#fcd34d" stroke-width="1" stroke-dasharray="2 2"/>
+                        <line x1="${boxRight}" y1="${sCutTop.y}" x2="${dimX + 5}" y2="${sCutTop.y}" stroke="#fcd34d" stroke-width="1" stroke-dasharray="2 2"/>
+                        <line x1="${dimX}" y1="${sBot.y}" x2="${dimX}" y2="${sCutTop.y}" stroke="#d97706" stroke-width="1.5" marker-start="url(#arrow-amber)" marker-end="url(#arrow-amber)"/>
+                        <rect x="${dimX - 9}" y="${midY - 52}" width="18" height="104" fill="white" opacity="0.92"/>
+                        <text x="${dimX}" y="${midY}" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 ${dimX} ${midY})" font-size="11" font-weight="bold" fill="#d97706">До сеч: ${secInfo.resHL_secant} мм</text>
+                    `;
+                }
+            }
+
+            const cx = sP.reduce((acc, p) => acc + p.x, 0) / n;
+            const cy = sP.reduce((acc, p) => acc + p.y, 0) / n;
+            const anglesHtml = sP.map((p, idx) => {
+                const dx = cx - p.x;
+                const dy = cy - p.y;
+                const dist = Math.hypot(dx, dy) || 1;
+                const tx = p.x + (dx / dist) * 24;
+                const ty = p.y + (dy / dist) * 20;
+                const color = angles[idx] <= 30 ? '#d97706' : '#0f172a';
+                return `<text x="${tx}" y="${ty}" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="bold" fill="${color}">${angles[idx]}°</text>`;
+            }).join('');
+
+            svg.innerHTML = `
+                <defs>
+                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="1"/>
+                    </pattern>
+                    <marker id="arrow-black" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                        <path d="M 0 1 L 8 4 L 0 7 z" fill="#334155"/>
+                    </marker>
+                    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                        <path d="M 0 1 L 8 4 L 0 7 z" fill="#2563eb"/>
+                    </marker>
+                    <marker id="arrow-amber" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                        <path d="M 0 1 L 8 4 L 0 7 z" fill="#d97706"/>
+                    </marker>
+                </defs>
+                <rect class="bg-grid-rect" width="100%" height="100%" fill="url(#grid)" />
+                <g id="drawingContent">
+                    <path d="${pathI}" fill="rgba(59, 130, 246, 0.08)" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="6 4" />
+                    ${secantSvgHtml}
+                    <path d="${pathP}" fill="none" stroke="#1e293b" stroke-width="3" stroke-linejoin="round" />
+                    ${sP.map(p => `<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#1e293b" />`).join('')}
+                    ${anglesHtml}
+                    ${dimsHtml}
+                </g>
+            `;
+        }
+
+        // Расчет и отрисовка шаблона №14: УГЛОМЕР (определение угла между окнами по 3 сторонам треугольника)
+        function updateGoniometer(d, openingRows) {
+            const A = Math.max(d.sideA || 1000, 10);
+            const B = Math.max(d.sideB || 1000, 10);
+            const C_raw = Math.max(d.sideC || 1414, 10);
+
+            document.getElementById('truncationSection').classList.add('hidden');
+            document.getElementById('legendSecant').classList.add('hidden');
+
+            const minPossibleC = Math.abs(A - B);
+            const maxPossibleC = A + B;
+
+            const isInvalidTriangle = (C_raw >= maxPossibleC) || (C_raw <= minPossibleC);
+            const warnEl = document.getElementById('archWarningSection');
+            const warnTitle = document.getElementById('archWarningTitle');
+            const warnText = document.getElementById('archWarningText');
+
+            if (isInvalidTriangle) {
+                warnEl.classList.remove('hidden');
+                warnTitle.innerText = 'Некорректные стороны треугольника!';
+                warnText.innerHTML = `Диагональ <b>C = ${Math.round(C_raw)} мм</b> не может образовать треугольник со сторонами <b>A = ${Math.round(A)} мм</b> и <b>B = ${Math.round(B)} мм</b>. Допустимый диапазон диагонали C: от <b>${Math.round(minPossibleC + 1)} мм</b> до <b>${Math.round(maxPossibleC - 1)} мм</b>.`;
+            } else {
+                warnEl.classList.add('hidden');
+            }
+
+            // Ограничиваем C в пределах существования треугольника для безопасной отрисовки
+            const C = Math.max(minPossibleC + 0.5, Math.min(C_raw, maxPossibleC - 0.5));
+
+            // Теорема косинусов: искомый угол gamma между сторонами A и B (напротив C)
+            const cosGamma = Math.max(-1, Math.min(1, (A * A + B * B - C * C) / (2 * A * B)));
+            const gammaRad = Math.acos(cosGamma);
+            const gammaDeg = Math.round((gammaRad * 180 / Math.PI) * 10) / 10;
+
+            // Угол при вершине BC (напротив стороны A) — alpha
+            const cosAlpha = Math.max(-1, Math.min(1, (B * B + C * C - A * A) / (2 * B * C)));
+            const alphaDeg = Math.round((Math.acos(cosAlpha) * 180 / Math.PI) * 10) / 10;
+
+            // Угол при вершине AC (напротив стороны B) — beta
+            const cosBeta = Math.max(-1, Math.min(1, (A * A + C * C - B * B) / (2 * A * C)));
+            const betaDeg = Math.round((Math.acos(cosBeta) * 180 / Math.PI) * 10) / 10;
+
+            // Дополнительные монтажные углы (разворот от плоскости и биссектриса стыка)
+            const supplementDeg = Math.round((180 - gammaDeg) * 10) / 10;
+            const miterBisectDeg = Math.round((gammaDeg / 2) * 10) / 10;
+
+            // Высота треугольника h (стрела вылета угла относительно хорды C)
+            const xProjVertex = (A * A - B * B + C * C) / (2 * C);
+            const hSag = Math.sqrt(Math.max(0, A * A - xProjVertex * xProjVertex));
+            const hRound = Math.round(hSag);
+
+            // Подсказка по типу угла
+            const noticeEl = document.getElementById('archCouplingNotice');
+            const noticeText = document.getElementById('archCouplingText');
+            noticeEl.classList.remove('hidden');
+            const angleTypeStr = gammaDeg < 89.5 ? 'острый угол' : (gammaDeg <= 90.5 ? 'прямой угол (90°)' : 'тупой (эркерный) угол');
+            noticeText.innerHTML = `Определен <b>${angleTypeStr}</b> между окнами: <b>${gammaDeg}°</b>. Угол разворота от прямой линии (для подбора соединителя): <b>${supplementDeg}°</b>, угол биссектрисы стыка: <b>${miterBisectDeg}°</b>.`;
+
+            // Вывод результатов в синюю панель
+            document.getElementById('resultsMetrics').innerHTML = `
+                <div class="col-span-2 bg-blue-950/60 p-2.5 rounded-lg border border-blue-700/50 flex justify-between items-center">
+                    <span class="text-blue-200 text-xs">Угол между окнами (&gamma;):</span>
+                    <div><b class="text-2xl font-mono text-amber-300">${gammaDeg}&deg;</b></div>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Угол разворота (180&deg;&minus;&gamma;):</span>
+                    <b class="text-lg font-mono text-white">${supplementDeg}&deg;</b>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Биссектриса (&gamma;/2):</span>
+                    <b class="text-lg font-mono text-white">${miterBisectDeg}&deg;</b>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Глубина (стрела h):</span>
+                    <b class="text-lg font-mono">${hRound}</b> <span class="text-xs text-blue-300">мм</span>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Диагональ (база C):</span>
+                    <b class="text-lg font-mono">${Math.round(C_raw)}</b> <span class="text-xs text-blue-300">мм</span>
+                </div>
+            `;
+
+            document.getElementById('anglesResultList').innerHTML = `
+                <div>Угол слева (&beta;): <b class="font-mono text-white">${betaDeg}&deg;</b></div>
+                <div>Угол справа (&alpha;): <b class="font-mono text-white">${alphaDeg}&deg;</b></div>
+            `;
+
+            // Данные для штампа А4
+            const productRows = [
+                { k1: 'Угол между окнами (γ)', v1: `${gammaDeg}°`, k2: 'Угол разворота (180°-γ)', v2: `${supplementDeg}°` },
+                { k1: 'Угол биссектрисы (γ/2)', v1: `${miterBisectDeg}°`, k2: 'Глубина вылета угла (h)', v2: `${hRound} мм` },
+                { k1: 'Примыкающий угол слева (β)', v1: `${betaDeg}°`, k2: 'Примыкающий угол справа (α)', v2: `${alphaDeg}°` },
+                { k1: 'Соотношение плеч A / B', v1: `${Math.round(A)} / ${Math.round(B)} мм`, k2: 'Контрольная хорда C', v2: `${Math.round(C_raw)} мм` }
+            ];
+            currentStampData = { openingRows, productRows };
+
+            // Отрисовка SVG для Угломера (вид сверху: вершина угла сверху, хорда C горизонтально внизу)
+            const svg = document.getElementById('canvas');
+            const ptLeft = { x: 0, y: 0 };
+            const ptRight = { x: C, y: 0 };
+            const ptVertex = { x: xProjVertex, y: hSag };
+
+            const minX = Math.min(0, ptVertex.x);
+            const maxX = Math.max(C, ptVertex.x);
+            const minY = 0;
+            const maxY = Math.max(hSag, C * 0.25);
+
+            const bboxW = Math.max(maxX - minX, 200);
+            const bboxH = Math.max(maxY - minY, 150);
+            const padX = 150;
+            const padY = 135;
+            const scale = Math.min((780 - padX * 2) / bboxW, (620 - padY * 2) / bboxH);
+
+            const toSvg = (pt) => ({
+                x: padX + (pt.x - minX) * scale,
+                y: 620 - padY - (pt.y - minY) * scale
+            });
+
+            const sL = toSvg(ptLeft);
+            const sR = toSvg(ptRight);
+            const sV = toSvg(ptVertex);
+            const sFoot = toSvg({ x: xProjVertex, y: 0 });
+
+            const angVL = Math.atan2(sL.y - sV.y, sL.x - sV.x);
+            const angVR = Math.atan2(sR.y - sV.y, sR.x - sV.x);
+
+            const lenVL_px = Math.hypot(sL.x - sV.x, sL.y - sV.y);
+            const lenVR_px = Math.hypot(sR.x - sV.x, sR.y - sV.y);
+            const arcR = Math.min(68, Math.max(32, Math.min(lenVL_px, lenVR_px) * 0.35));
+
+            const arcStart = {
+                x: sV.x + arcR * Math.cos(angVL),
+                y: sV.y + arcR * Math.sin(angVL)
+            };
+            const arcEnd = {
+                x: sV.x + arcR * Math.cos(angVR),
+                y: sV.y + arcR * Math.sin(angVR)
+            };
+
+            const midAng = (angVL + angVR) / 2;
+            const labelGammaPos = {
+                x: sV.x + (arcR + 26) * Math.cos(midAng),
+                y: sV.y + (arcR + 24) * Math.sin(midAng)
+            };
+
+            function drawArmBadge(p1, p2, titleText, subText) {
+                const mx = (p1.x + p2.x) / 2;
+                const my = (p1.y + p2.y) / 2;
+                let ang = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+                if (ang > 90) ang -= 180;
+                if (ang < -90) ang += 180;
+                const boxW = Math.max(titleText.length * 6.5 + 18, 120);
+                return `
+                    <g transform="translate(${mx}, ${my}) rotate(${ang})">
+                        <rect x="${-boxW / 2}" y="-28" width="${boxW}" height="22" rx="4" fill="white" opacity="0.95" stroke="#1e293b" stroke-width="1.2"/>
+                        <text x="0" y="-13" text-anchor="middle" font-size="11" font-weight="bold" fill="#0f172a">${titleText}</text>
+                        <text x="0" y="16" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#475569">${subText}</text>
+                    </g>
+                `;
+            }
+
+            const dimY_C = Math.max(sL.y, sR.y) + 46;
+            const midC_X = (sL.x + sR.x) / 2;
+
+            svg.innerHTML = `
+                <defs>
+                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="1"/>
+                    </pattern>
+                    <marker id="arrow-black" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                        <path d="M 0 1 L 8 4 L 0 7 z" fill="#334155"/>
+                    </marker>
+                    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                        <path d="M 0 1 L 8 4 L 0 7 z" fill="#2563eb"/>
+                    </marker>
+                </defs>
+                <rect class="bg-grid-rect" width="100%" height="100%" fill="url(#grid)" />
+                <g id="drawingContent">
+                    <polygon points="${sL.x},${sL.y} ${sV.x},${sV.y} ${sR.x},${sR.y}" fill="rgba(59, 130, 246, 0.06)" />
+
+                    <path d="M ${sV.x} ${sV.y} L ${arcStart.x} ${arcStart.y} A ${arcR} ${arcR} 0 0 0 ${arcEnd.x} ${arcEnd.y} Z" fill="rgba(245, 158, 11, 0.22)" stroke="#d97706" stroke-width="2" />
+
+                    <line x1="${sV.x}" y1="${sV.y}" x2="${sFoot.x}" y2="${sFoot.y}" stroke="#94a3b8" stroke-width="1.3" stroke-dasharray="4 4" />
+                    <rect x="${sV.x - 42}" y="${(sV.y + sFoot.y) / 2 - 9}" width="84" height="18" rx="3" fill="white" opacity="0.92" stroke="#cbd5e1" stroke-width="0.8"/>
+                    <text x="${sV.x}" y="${(sV.y + sFoot.y) / 2 + 4}" text-anchor="middle" font-size="10" font-weight="bold" fill="#475569">h = ${hRound} мм</text>
+
+                    <line x1="${sL.x}" y1="${sL.y}" x2="${sR.x}" y2="${sR.y}" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="7 5" />
+
+                    <line x1="${sL.x}" y1="${sL.y}" x2="${sV.x}" y2="${sV.y}" stroke="#cbd5e1" stroke-width="9" stroke-linecap="round" />
+                    <line x1="${sR.x}" y1="${sR.y}" x2="${sV.x}" y2="${sV.y}" stroke="#cbd5e1" stroke-width="9" stroke-linecap="round" />
+                    <line x1="${sL.x}" y1="${sL.y}" x2="${sV.x}" y2="${sV.y}" stroke="${isInvalidTriangle ? '#e11d48' : '#0f172a'}" stroke-width="3.5" stroke-linecap="round" />
+                    <line x1="${sR.x}" y1="${sR.y}" x2="${sV.x}" y2="${sV.y}" stroke="${isInvalidTriangle ? '#e11d48' : '#0f172a'}" stroke-width="3.5" stroke-linecap="round" />
+
+                    ${drawArmBadge(sL, sV, `Сторона A: ${Math.round(A)} мм`, `Окно 1 (левое плечо)`)}
+                    ${drawArmBadge(sV, sR, `Сторона B: ${Math.round(B)} мм`, `Окно 2 (правое плечо)`)}
+
+                    <line x1="${sL.x}" y1="${sL.y}" x2="${sL.x}" y2="${dimY_C + 6}" stroke="#93c5fd" stroke-width="1.2" stroke-dasharray="2 2"/>
+                    <line x1="${sR.x}" y1="${sR.y}" x2="${sR.x}" y2="${dimY_C + 6}" stroke="#93c5fd" stroke-width="1.2" stroke-dasharray="2 2"/>
+                    <line x1="${sL.x}" y1="${dimY_C}" x2="${sR.x}" y2="${dimY_C}" stroke="#2563eb" stroke-width="1.6" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)"/>
+                    <rect x="${midC_X - 75}" y="${dimY_C - 10}" width="150" height="20" rx="3" fill="white" opacity="0.95"/>
+                    <text x="${midC_X}" y="${dimY_C + 4}" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#2563eb">Диагональ C: ${Math.round(C_raw)} мм</text>
+
+                    <circle cx="${sV.x}" cy="${sV.y}" r="5" fill="#d97706" stroke="white" stroke-width="1.5" />
+                    <circle cx="${sL.x}" cy="${sL.y}" r="4.5" fill="#2563eb" stroke="white" stroke-width="1.5" />
+                    <circle cx="${sR.x}" cy="${sR.y}" r="4.5" fill="#2563eb" stroke="white" stroke-width="1.5" />
+
+                    <rect x="${sV.x - 82}" y="${sV.y - 52}" width="164" height="38" rx="6" fill="#0f172a" stroke="#f59e0b" stroke-width="1.8"/>
+                    <text x="${sV.x}" y="${sV.y - 34}" text-anchor="middle" font-size="13" font-weight="bold" fill="#fbbf24">Угол γ = ${gammaDeg}°</text>
+                    <text x="${sV.x}" y="${sV.y - 19}" text-anchor="middle" font-size="9.5" font-weight="bold" fill="#e2e8f0">Разворот: ${supplementDeg}° | Стык: ${miterBisectDeg}°</text>
+
+                    <rect x="${labelGammaPos.x - 28}" y="${labelGammaPos.y - 9}" width="56" height="18" rx="4" fill="white" opacity="0.92" stroke="#fcd34d" stroke-width="1"/>
+                    <text x="${labelGammaPos.x}" y="${labelGammaPos.y + 4}" text-anchor="middle" font-size="11" font-weight="bold" fill="#b45309">${gammaDeg}°</text>
+
+                    <text x="${sL.x - 12}" y="${sL.y + 18}" text-anchor="end" font-size="10.5" font-weight="bold" fill="#334155">β = ${betaDeg}°</text>
+                    <text x="${sR.x + 12}" y="${sR.y + 18}" text-anchor="start" font-size="10.5" font-weight="bold" fill="#334155">α = ${alphaDeg}°</text>
+                </g>
+            `;
+        }
+
+        // Расчет и отрисовка Арочного шаблона (№12) с поддержкой правильных (180°) и лучковых (<180°, R > W/2) арок
+        function updateArch(d, offs, openingRows) {
+            const { oL, oR, oT, oB } = offs;
+            const W = Math.max(d.wB || 1200, 100);
+            const Hside = Math.max(d.hSide || 1100, 0);
+            const Htotal = Math.max(d.hTotal || 1700, Hside + 10);
+
+            document.getElementById('truncationSection').classList.add('hidden');
+            document.getElementById('legendSecant').classList.add('hidden');
+
+            const hArchRaw = Htotal - Hside;
+            const halfW = W / 2;
+            const isInvalidOpen = hArchRaw > halfW;
+
+            const archWarnEl = document.getElementById('archWarningSection');
+            const archWarnTitle = document.getElementById('archWarningTitle');
+            const archWarnText = document.getElementById('archWarningText');
+
+            if (isInvalidOpen) {
+                archWarnEl.classList.remove('hidden');
+                archWarnTitle.innerText = 'Геометрическое ограничение проема арки!';
+                archWarnText.innerHTML = `Высота подъема арки (<b>${Math.round(hArchRaw)} мм</b>) превышает половину ширины проема (<b>W/2 = ${Math.round(halfW)} мм</b>), из-за чего угол дуги превышает <b>180°</b>. Максимальная общая высота при текущей ширине: <b>${Math.round(Hside + halfW)} мм</b>.`;
+            } else {
+                archWarnEl.classList.add('hidden');
+            }
+
+            const hArch = Math.max(1, Math.min(hArchRaw, halfW));
+            const R_open = (W * W) / (8 * hArch) + hArch / 2;
+            const centerX_open = W / 2;
+            const centerY_open = (Hside + hArch) - R_open;
+
+            const halfAngleOpenRad = Math.asin(Math.min(1, halfW / R_open));
+            const arcAngleOpenDeg = Math.round((2 * halfAngleOpenRad * 180 / Math.PI) * 10) / 10;
+
+            const xL_prod = -oL;
+            const xR_prod = W + oR;
+            const yBot_prod = -oB;
+            const W_prod = xR_prod - xL_prod;
+            const halfW_prod = W_prod / 2;
+
+            const centerX_prod = (xL_prod + xR_prod) / 2;
+            const yTop_prod = (Hside + hArch) + oT;
+
+            const R_eq = R_open + oT;
+            let R_prod;
+            let centerY_prod;
+            let ySpring_prod;
+
+            const couplingNotice = document.getElementById('archCouplingNotice');
+            const couplingText = document.getElementById('archCouplingText');
+
+            if (R_eq >= halfW_prod) {
+                R_prod = R_eq;
+                centerY_prod = yTop_prod - R_prod;
+                const dyIntersect = Math.sqrt(Math.max(0, R_prod * R_prod - halfW_prod * halfW_prod));
+                ySpring_prod = centerY_prod + dyIntersect;
+
+                if (Math.round(R_open) > Math.round(halfW)) {
+                    couplingNotice.classList.remove('hidden');
+                    couplingText.innerHTML = `<b>Неправильная (лучковая) арка:</b> радиус проема (<b>R = ${Math.round(R_open)} мм</b>) больше половины ширины (<b>${Math.round(halfW)} мм</b>). Угол дуги: <b>${arcAngleOpenDeg}°</b> (&lt; 180°). Высота прямых боков изделия: <b>${Math.round(ySpring_prod - yBot_prod)} мм</b>.`;
+                } else {
+                    couplingNotice.classList.add('hidden');
+                }
+            } else {
+                R_prod = halfW_prod;
+                centerY_prod = yTop_prod - R_prod;
+                ySpring_prod = centerY_prod;
+                couplingNotice.classList.remove('hidden');
+                couplingText.innerHTML = `Выполнено <b>автоматическое касательное сопряжение</b> дуги с боковыми сторонами изделия. Радиус изделия: <b>R = ${Math.round(R_prod)} мм</b>, высота прямых боков: <b>${Math.round(ySpring_prod - yBot_prod)} мм</b>.`;
+            }
+
+            const Hside_prod = Math.round(ySpring_prod - yBot_prod);
+            const Htotal_prod = Math.round(yTop_prod - yBot_prod);
+            const W_prod_round = Math.round(W_prod);
+
+            const halfAngleProdRad = Math.asin(Math.min(1, halfW_prod / R_prod));
+            const arcAngleProdDeg = Math.round((2 * halfAngleProdRad * 180 / Math.PI) * 10) / 10;
+            const arcLength = Math.round(2 * halfAngleProdRad * R_prod);
+            const cornerTransitionDeg = Math.round((90 + (Math.acos(Math.min(1, halfW_prod / R_prod)) * 180 / Math.PI)) * 10) / 10;
+
+            document.getElementById('resultsMetrics').innerHTML = `
+                <div class="col-span-2 bg-blue-950/60 p-2.5 rounded-lg border border-blue-700/50 flex justify-between items-center">
+                    <span class="text-blue-200 text-xs">Высота прямых боков (начало арки изд.):</span>
+                    <div><b class="text-xl font-mono text-amber-300">${Hside_prod}</b> <span class="text-xs text-blue-300">мм</span></div>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Ширина низа изд.:</span>
+                    <b class="text-lg font-mono">${W_prod_round}</b> <span class="text-xs text-blue-300">мм</span>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Высота общая изд.:</span>
+                    <b class="text-lg font-mono">${Htotal_prod}</b> <span class="text-xs text-blue-300">мм</span>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Радиус проема:</span>
+                    <b class="text-lg font-mono ${isInvalidOpen ? 'text-rose-300' : 'text-white'}">R ${Math.round(R_open)}</b> <span class="text-xs text-blue-300">мм (${arcAngleOpenDeg}°)</span>
+                </div>
+                <div>
+                    <span class="text-blue-300 text-xs block">Радиус изделия:</span>
+                    <b class="text-lg font-mono text-amber-300">R ${Math.round(R_prod)}</b> <span class="text-xs text-blue-300">мм (${arcAngleProdDeg}°)</span>
+                </div>
+                <div class="col-span-2">
+                    <span class="text-blue-300 text-xs block">Длина дуги изделия:</span>
+                    <b class="text-lg font-mono">${arcLength}</b> <span class="text-xs text-blue-300">мм</span>
+                </div>
+            `;
+
+            document.getElementById('anglesResultList').innerHTML = `
+                <div>Нижние углы: <b class="font-mono text-white">90°</b></div>
+                <div>Угол дуги изд.: <b class="font-mono text-amber-300">${arcAngleProdDeg}°</b></div>
+                <div class="col-span-2">Переход бок → дуга: <b class="font-mono text-white">${cornerTransitionDeg}°</b></div>
+            `;
+
+            const productRows = [
+                { k1: 'Ширина низа изд.', v1: `${W_prod_round} мм`, k2: 'Высота общая изд.', v2: `${Htotal_prod} мм` },
+                { k1: 'Высота прямых боков изд.', v1: `${Hside_prod} мм`, k2: 'Длина дуги арки изд.', v2: `${arcLength} мм` },
+                { k1: 'Радиус и угол проема', v1: `R ${Math.round(R_open)} мм (${arcAngleOpenDeg}°)`, k2: 'Радиус и угол изд.', v2: `R ${Math.round(R_prod)} мм (${arcAngleProdDeg}°)` },
+                { k1: 'Нижние углы рамы', v1: '90° / 90°', k2: 'Угол бок → дуга', v2: `${cornerTransitionDeg}°` }
+            ];
+            currentStampData = { openingRows, productRows };
+
+            const svg = document.getElementById('canvas');
+            const minX = Math.min(0, xL_prod);
+            const maxX = Math.max(W, xR_prod);
+            const minY = Math.min(0, yBot_prod);
+            const maxY = Math.max(Hside + hArch, yTop_prod);
+
+            const bboxW = Math.max(maxX - minX, 200);
+            const bboxH = Math.max(maxY - minY, 200);
+            const padX = 170, padY = 135;
+            const scale = Math.min((780 - padX * 2) / bboxW, (620 - padY * 2) / bboxH);
+
+            const toSvg = (pt) => ({
+                x: padX + (pt.x - minX) * scale,
+                y: 620 - padY - (pt.y - minY) * scale
+            });
+
+            const pBL = toSvg({ x: 0, y: 0 });
+            const pTL = toSvg({ x: 0, y: Hside });
+            const pTR = toSvg({ x: W, y: Hside });
+            const pBR = toSvg({ x: W, y: 0 });
+            const pPeak = toSvg({ x: W / 2, y: Hside + hArch });
+            const rSvgP = R_open * scale;
+
+            const iBL = toSvg({ x: xL_prod, y: yBot_prod });
+            const iTL = toSvg({ x: xL_prod, y: ySpring_prod });
+            const iTR = toSvg({ x: xR_prod, y: ySpring_prod });
+            const iBR = toSvg({ x: xR_prod, y: yBot_prod });
+            const iPeak = toSvg({ x: centerX_prod, y: yTop_prod });
+            const rSvgI = R_prod * scale;
+
+            const sCenterP = toSvg({ x: centerX_open, y: centerY_open });
+            const sCenterI = toSvg({ x: centerX_prod, y: centerY_prod });
+
+            const angRadP = Math.PI / 2 + halfAngleOpenRad * 0.45;
+            const angRadI = Math.PI / 2 - halfAngleProdRad * 0.45;
+
+            const ptArcP = toSvg({
+                x: centerX_open + R_open * Math.cos(angRadP),
+                y: centerY_open + R_open * Math.sin(angRadP)
+            });
+            const ptOutP = {
+                x: ptArcP.x - 45 * Math.cos(Math.PI - angRadP),
+                y: ptArcP.y - 35 * Math.sin(angRadP)
+            };
+
+            const ptArcI = toSvg({
+                x: centerX_prod + R_prod * Math.cos(angRadI),
+                y: centerY_prod + R_prod * Math.sin(angRadI)
+            });
+            const ptOutI = {
+                x: ptArcI.x + 50 * Math.cos(angRadI),
+                y: ptArcI.y - 35 * Math.sin(angRadI)
+            };
+
+            const clampRayStart = (sCenter, ptArc, maxLen = 110) => {
+                const dx = sCenter.x - ptArc.x;
+                const dy = sCenter.y - ptArc.y;
+                const dist = Math.hypot(dx, dy);
+                if (dist <= maxLen) return { x: sCenter.x, y: sCenter.y, clipped: false };
+                return {
+                    x: ptArc.x + (dx / dist) * maxLen,
+                    y: ptArc.y + (dy / dist) * maxLen,
+                    clipped: true
+                };
+            };
+
+            const rayStartP = clampRayStart(sCenterP, ptArcP);
+            const rayStartI = clampRayStart(sCenterI, ptArcI);
+
+            const pathP = `M ${pBL.x} ${pBL.y} L ${pTL.x} ${pTL.y} A ${rSvgP} ${rSvgP} 0 0 1 ${pTR.x} ${pTR.y} L ${pBR.x} ${pBR.y} Z`;
+            const pathI = `M ${iBL.x} ${iBL.y} L ${iTL.x} ${iTL.y} A ${rSvgI} ${rSvgI} 0 0 1 ${iTR.x} ${iTR.y} L ${iBR.x} ${iBR.y} Z`;
+
+            const boxLeft = Math.min(pBL.x, iBL.x);
+            const boxRight = Math.max(pBR.x, iBR.x);
+            const boxBottom = Math.max(pBL.y, iBL.y);
+
+            svg.innerHTML = `
+                <defs>
+                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#f1f5f9" stroke-width="1"/>
+                    </pattern>
+                    <marker id="arrow-black" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                        <path d="M 0 1 L 8 4 L 0 7 z" fill="#334155"/>
+                    </marker>
+                    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                        <path d="M 0 1 L 8 4 L 0 7 z" fill="#2563eb"/>
+                    </marker>
+                </defs>
+                <rect class="bg-grid-rect" width="100%" height="100%" fill="url(#grid)" />
+                <g id="drawingContent">
+                    <path d="${pathI}" fill="rgba(59, 130, 246, 0.08)" stroke="#2563eb" stroke-width="2.5" stroke-dasharray="6 4" />
+                    <path d="${pathP}" fill="none" stroke="${isInvalidOpen ? '#e11d48' : '#1e293b'}" stroke-width="3" stroke-linejoin="round" />
+
+                    <circle cx="${iTL.x}" cy="${iTL.y}" r="4" fill="#2563eb" />
+                    <circle cx="${iTR.x}" cy="${iTR.y}" r="4" fill="#2563eb" />
+                    <line x1="${iTL.x}" y1="${iTL.y}" x2="${iTR.x}" y2="${iTR.y}" stroke="#93c5fd" stroke-width="1" stroke-dasharray="4 4" />
+
+                    ${!rayStartP.clipped ? `<circle cx="${sCenterP.x}" cy="${sCenterP.y}" r="3" fill="#334155" />` : ''}
+                    ${!rayStartI.clipped ? `<circle cx="${sCenterI.x}" cy="${sCenterI.y}" r="3" fill="#2563eb" />` : ''}
+
+                    <line x1="${rayStartP.x}" y1="${rayStartP.y}" x2="${ptArcP.x}" y2="${ptArcP.y}" stroke="#334155" stroke-width="1.2" stroke-dasharray="3 2" marker-end="url(#arrow-black)"/>
+                    <line x1="${ptArcP.x}" y1="${ptArcP.y}" x2="${ptOutP.x}" y2="${ptOutP.y}" stroke="#334155" stroke-width="1.2"/>
+                    <line x1="${ptOutP.x}" y1="${ptOutP.y}" x2="${ptOutP.x - 110}" y2="${ptOutP.y}" stroke="#334155" stroke-width="1.2"/>
+                    <rect x="${ptOutP.x - 110}" y="${ptOutP.y - 16}" width="110" height="15" fill="white" opacity="0.92"/>
+                    <text x="${ptOutP.x - 55}" y="${ptOutP.y - 5}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#334155">R пр: ${Math.round(R_open)} (${arcAngleOpenDeg}°)</text>
+
+                    <line x1="${rayStartI.x}" y1="${rayStartI.y}" x2="${ptArcI.x}" y2="${ptArcI.y}" stroke="#2563eb" stroke-width="1.4" stroke-dasharray="3 2" marker-end="url(#arrow-blue)"/>
+                    <line x1="${ptArcI.x}" y1="${ptArcI.y}" x2="${ptOutI.x}" y2="${ptOutI.y}" stroke="#2563eb" stroke-width="1.4"/>
+                    <line x1="${ptOutI.x}" y1="${ptOutI.y}" x2="${ptOutI.x + 115}" y2="${ptOutI.y}" stroke="#2563eb" stroke-width="1.4"/>
+                    <rect x="${ptOutI.x}" y="${ptOutI.y - 16}" width="115" height="15" fill="white" opacity="0.92"/>
+                    <text x="${ptOutI.x + 57}" y="${ptOutI.y - 5}" text-anchor="middle" font-size="10.5" font-weight="bold" fill="#2563eb">R изд: ${Math.round(R_prod)} (${arcAngleProdDeg}°)</text>
+
+                    <circle cx="${pBL.x}" cy="${pBL.y}" r="3.5" fill="#1e293b" />
+                    <circle cx="${pTL.x}" cy="${pTL.y}" r="3.5" fill="#1e293b" />
+                    <circle cx="${pTR.x}" cy="${pTR.y}" r="3.5" fill="#1e293b" />
+                    <circle cx="${pBR.x}" cy="${pBR.y}" r="3.5" fill="#1e293b" />
+
+                    <line x1="${pBL.x}" y1="${pBL.y}" x2="${pBL.x}" y2="${boxBottom + 31}" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${pBR.x}" y1="${pBR.y}" x2="${pBR.x}" y2="${boxBottom + 31}" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${pBL.x}" y1="${boxBottom + 26}" x2="${pBR.x}" y2="${boxBottom + 26}" stroke="#334155" stroke-width="1.2" marker-start="url(#arrow-black)" marker-end="url(#arrow-black)"/>
+                    <rect x="${(pBL.x + pBR.x)/2 - 40}" y="${boxBottom + 17}" width="80" height="18" fill="white" opacity="0.92"/>
+                    <text x="${(pBL.x + pBR.x)/2}" y="${boxBottom + 30}" text-anchor="middle" font-size="11" font-weight="bold" fill="#334155">Пр: ${W} мм</text>
+
+                    <line x1="${iBL.x}" y1="${iBL.y}" x2="${iBL.x}" y2="${boxBottom + 59}" stroke="#93c5fd" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${iBR.x}" y1="${iBR.y}" x2="${iBR.x}" y2="${boxBottom + 59}" stroke="#93c5fd" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${iBL.x}" y1="${boxBottom + 54}" x2="${iBR.x}" y2="${boxBottom + 54}" stroke="#2563eb" stroke-width="1.5" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)"/>
+                    <rect x="${(iBL.x + iBR.x)/2 - 44}" y="${boxBottom + 45}" width="88" height="18" fill="white" opacity="0.92"/>
+                    <text x="${(iBL.x + iBR.x)/2}" y="${boxBottom + 58}" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Изд: ${W_prod_round} мм</text>
+
+                    <line x1="${pBL.x}" y1="${pBL.y}" x2="${boxLeft - 33}" y2="${pBL.y}" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${pTL.x}" y1="${pTL.y}" x2="${boxLeft - 33}" y2="${pTL.y}" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${boxLeft - 28}" y1="${pBL.y}" x2="${boxLeft - 28}" y2="${pTL.y}" stroke="#334155" stroke-width="1.2" marker-start="url(#arrow-black)" marker-end="url(#arrow-black)"/>
+                    <rect x="${boxLeft - 37}" y="${(pBL.y + pTL.y)/2 - 36}" width="18" height="72" fill="white" opacity="0.92"/>
+                    <text x="${boxLeft - 28}" y="${(pBL.y + pTL.y)/2}" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 ${boxLeft - 28} ${(pBL.y + pTL.y)/2})" font-size="11" font-weight="bold" fill="#334155">Пр бок: ${Hside} мм</text>
+
+                    <line x1="${iBL.x}" y1="${iBL.y}" x2="${boxLeft - 63}" y2="${iBL.y}" stroke="#93c5fd" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${iTL.x}" y1="${iTL.y}" x2="${boxLeft - 63}" y2="${iTL.y}" stroke="#93c5fd" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${boxLeft - 58}" y1="${iBL.y}" x2="${boxLeft - 58}" y2="${iTL.y}" stroke="#2563eb" stroke-width="1.5" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)"/>
+                    <rect x="${boxLeft - 67}" y="${(iBL.y + iTL.y)/2 - 42}" width="18" height="84" fill="white" opacity="0.92"/>
+                    <text x="${boxLeft - 58}" y="${(iBL.y + iTL.y)/2}" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 ${boxLeft - 58} ${(iBL.y + iTL.y)/2})" font-size="11" font-weight="bold" fill="#2563eb">Изд бок: ${Hside_prod} мм</text>
+
+                    <line x1="${pBR.x}" y1="${pBR.y}" x2="${boxRight + 33}" y2="${pBR.y}" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${pPeak.x}" y1="${pPeak.y}" x2="${boxRight + 33}" y2="${pPeak.y}" stroke="#64748b" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${boxRight + 28}" y1="${pBR.y}" x2="${boxRight + 28}" y2="${pPeak.y}" stroke="#334155" stroke-width="1.2" marker-start="url(#arrow-black)" marker-end="url(#arrow-black)"/>
+                    <rect x="${boxRight + 19}" y="${(pBR.y + pPeak.y)/2 - 36}" width="18" height="72" fill="white" opacity="0.92"/>
+                    <text x="${boxRight + 28}" y="${(pBR.y + pPeak.y)/2}" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 ${boxRight + 28} ${(pBR.y + pPeak.y)/2})" font-size="11" font-weight="bold" fill="#334155">Пр общ: ${Htotal} мм</text>
+
+                    <line x1="${iBR.x}" y1="${iBR.y}" x2="${boxRight + 63}" y2="${iBR.y}" stroke="#93c5fd" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${iPeak.x}" y1="${iPeak.y}" x2="${boxRight + 63}" y2="${iPeak.y}" stroke="#93c5fd" stroke-width="1" stroke-dasharray="2 2"/>
+                    <line x1="${boxRight + 58}" y1="${iBR.y}" x2="${boxRight + 58}" y2="${iPeak.y}" stroke="#2563eb" stroke-width="1.5" marker-start="url(#arrow-blue)" marker-end="url(#arrow-blue)"/>
+                    <rect x="${boxRight + 49}" y="${(iBR.y + iPeak.y)/2 - 38}" width="18" height="76" fill="white" opacity="0.92"/>
+                    <text x="${boxRight + 58}" y="${(iBR.y + iPeak.y)/2}" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 ${boxRight + 58} ${(iBR.y + iPeak.y)/2})" font-size="11" font-weight="bold" fill="#2563eb">Изд общ: ${Htotal_prod} мм</text>
+                </g>
+            `;
+        }
+
+        // Подготовка листа А4: автоматическое масштабирование SVG по точному BBox и заполнение табличного штампа
+        function preparePrintSheetA4() {
+            const tmpl = templates[currentKey];
+            const srcSvg = document.getElementById('canvas');
+            const printSvg = document.getElementById('printCanvas');
+
+            printSvg.innerHTML = srcSvg.innerHTML;
+
+            const contentGroup = srcSvg.querySelector('#drawingContent');
+            if (contentGroup) {
+                const bbox = contentGroup.getBBox();
+                const pad = 16;
+                const vx = Math.floor(bbox.x - pad);
+                const vy = Math.floor(bbox.y - pad);
+                const vw = Math.ceil(bbox.width + pad * 2);
+                const vh = Math.ceil(bbox.height + pad * 2);
+
+                printSvg.setAttribute('viewBox', `${vx} ${vy} ${vw} ${vh}`);
+                const bgRect = printSvg.querySelector('.bg-grid-rect');
+                if (bgRect) {
+                    bgRect.setAttribute('x', vx);
+                    bgRect.setAttribute('y', vy);
+                    bgRect.setAttribute('width', vw);
+                    bgRect.setAttribute('height', vh);
+                }
+            } else {
+                printSvg.setAttribute('viewBox', '0 0 780 620');
+            }
+
+            document.getElementById('printHeaderTemplate').innerText = tmpl.name;
+            document.getElementById('stampTemplateName').innerText = tmpl.name;
+            document.getElementById('stampOrderNum').innerText = document.getElementById('orderNum').value.trim() || 'Б/Н';
+            document.getElementById('stampClientObj').innerText = document.getElementById('clientObj').value.trim() || '—';
+            document.getElementById('stampDate').innerText = new Date().toLocaleDateString('ru-RU');
+
+            document.getElementById('stampTable1Header').innerText = tmpl.isGoniometer
+                ? '1. Измеренные стороны треугольника (мм)'
+                : '1. Параметры проема и монтажные зазоры';
+            document.getElementById('stampTable2Header').innerText = tmpl.isGoniometer
+                ? '2. Расчетные углы примыкания окон и эркера'
+                : '2. Расчетные размеры готового изделия (рамы)';
+
+            document.getElementById('stampOpeningTable').innerHTML = currentStampData.openingRows.map(r => `
+                <tr>
+                    <td class="text-slate-600 font-medium">${r.label}</td>
+                    <td class="font-bold text-right text-slate-900">${r.val}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('stampProductTable').innerHTML = currentStampData.productRows.map(r => `
+                <tr>
+                    <td class="text-slate-600 font-medium w-[28%]">${r.k1}</td>
+                    <td class="font-bold text-blue-800 w-[22%]">${r.v1}</td>
+                    <td class="text-slate-600 font-medium w-[25%]">${r.k2}</td>
+                    <td class="font-bold text-slate-900 w-[25%]">${r.v2}</td>
+                </tr>
+            `).join('');
+        }
+
+        // =========================================================================
+        // СИСТЕМА МОНЕТИЗАЦИИ: 30-ДНЕВНЫЙ ТРИАЛ -> ПОДПИСКА PRO ИЛИ РЕКЛАМА (FREEMIUM)
+        // =========================================================================
+        const TRIAL_DAYS = 30;
+        const STORAGE_KEYS = {
+            installDate: 'forma_okon_install_ts',
+            isPro: 'forma_okon_is_pro',
+            proExpiresAt: 'forma_okon_pro_expires_ts',
+            proPlanName: 'forma_okon_pro_plan',
+            adUnlockedUntil: 'forma_okon_ad_unlock_ts'
+        };
+
+        // Тарифная сетка и платежные ссылки (замените ссылки на свои из ЮKassa / Робокассы / Prodamus)
+        const SUBSCRIPTION_PLANS = {
+            '1m': {
+                id: '1m',
+                title: '1 месяц',
+                days: 30,
+                price: 699,
+                monthlyEq: 699,
+                savings: 0,
+                btnText: '💳 Оплатить 1 месяц — 699 ₽',
+                checkoutUrl: 'https://yookassa.ru/?plan=1m&amount=699'
+            },
+            '6m': {
+                id: '6m',
+                title: '6 месяцев (−20%)',
+                days: 180,
+                price: 3350,
+                monthlyEq: 558,
+                savings: 844,
+                btnText: '💳 Оплатить 6 месяцев — 3 350 ₽ (выгода 844 ₽)',
+                checkoutUrl: 'https://yookassa.ru/?plan=6m&amount=3350'
+            },
+            '12m': {
+                id: '12m',
+                title: '1 год (−30%)',
+                days: 365,
+                price: 5870,
+                monthlyEq: 489,
+                savings: 2518,
+                btnText: '💳 Оплатить 1 год — 5 870 ₽ (выгода 2 518 ₽)',
+                checkoutUrl: 'https://yookassa.ru/?plan=12m&amount=5870'
+            }
+        };
+
+        let selectedPlanKey = '6m';
+        let pendingRewardAction = null;
+        let rewardInterval = null;
+
+        function selectSubscriptionPlan(planKey) {
+            if (!SUBSCRIPTION_PLANS[planKey]) return;
+            selectedPlanKey = planKey;
+            ['1m', '6m', '12m'].forEach(k => {
+                const el = document.getElementById('planCard_' + k);
+                if (el) el.classList.toggle('active', k === planKey);
+            });
+            const btn = document.getElementById('paySelectedPlanBtn');
+            if (btn) btn.innerText = SUBSCRIPTION_PLANS[planKey].btnText;
+        }
+
+        function activateProSubscription(planKey) {
+            const plan = SUBSCRIPTION_PLANS[planKey] || SUBSCRIPTION_PLANS['6m'];
+            const now = Date.now();
+            const currentExp = parseInt(localStorage.getItem(STORAGE_KEYS.proExpiresAt) || '0', 10);
+            const baseTime = currentExp > now ? currentExp : now;
+            const newExp = baseTime + plan.days * 24 * 60 * 60 * 1000;
+
+            localStorage.setItem(STORAGE_KEYS.isPro, 'true');
+            localStorage.setItem(STORAGE_KEYS.proExpiresAt, newExp.toString());
+            localStorage.setItem(STORAGE_KEYS.proPlanName, plan.title);
+        }
+
+        function initLicenseSystem() {
+            let installTs = localStorage.getItem(STORAGE_KEYS.installDate);
+            if (!installTs) {
+                installTs = Date.now().toString();
+                localStorage.setItem(STORAGE_KEYS.installDate, installTs);
+            }
+
+            // Автоматическая активация при возврате со страницы оплаты (например: ?pro_activated=6m)
+            const params = new URLSearchParams(window.location.search);
+            const autoPlan = params.get('pro_activated');
+            if (autoPlan && SUBSCRIPTION_PLANS[autoPlan]) {
+                activateProSubscription(autoPlan);
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            selectSubscriptionPlan(selectedPlanKey);
+            updateLicenseUI();
+        }
+
+        function getLicenseState() {
+            const isProFlag = localStorage.getItem(STORAGE_KEYS.isPro) === 'true';
+            const proExpTs = parseInt(localStorage.getItem(STORAGE_KEYS.proExpiresAt) || '0', 10);
+            const proPlanName = localStorage.getItem(STORAGE_KEYS.proPlanName) || 'PRO';
+            const isPro = isProFlag && (proExpTs === 0 || Date.now() < proExpTs);
+            const proDaysLeft = proExpTs > Date.now() ? Math.ceil((proExpTs - Date.now()) / (1000 * 60 * 60 * 24)) : 0;
+
+            const installTs = parseInt(localStorage.getItem(STORAGE_KEYS.installDate) || Date.now().toString(), 10);
+            const adUnlockTs = parseInt(localStorage.getItem(STORAGE_KEYS.adUnlockedUntil) || '0', 10);
+
+            const elapsedMs = Date.now() - installTs;
+            const elapsedDays = elapsedMs / (1000 * 60 * 60 * 24);
+            const daysLeft = Math.max(0, Math.ceil(TRIAL_DAYS - elapsedDays));
+            const isTrialActive = daysLeft > 0;
+            const isAdSessionActive = Date.now() < adUnlockTs;
+
+            return {
+                isPro,
+                proDaysLeft,
+                proPlanName,
+                isTrialActive,
+                daysLeft,
+                isAdSessionActive,
+                hasFullAccess: isPro || isTrialActive || isAdSessionActive
+            };
+        }
+
+        function updateLicenseUI() {
+            const st = getLicenseState();
+            const badge = document.getElementById('subStatusBadge');
+            const textEl = document.getElementById('subStatusText');
+            const adBanner = document.getElementById('freeModeAdBanner');
+            const printWatermark = document.getElementById('printFreeWatermark');
+
+            badge.className = 'status-badge';
+            if (st.isPro) {
+                badge.classList.add('status-badge-pro');
+                badge.innerHTML = '<span>👑</span> <span>PRO активен</span>';
+                adBanner.classList.add('hidden');
+                adBanner.classList.remove('flex');
+                if (printWatermark) printWatermark.classList.add('hidden');
+            } else if (st.isTrialActive) {
+                badge.classList.add('status-badge-trial');
+                badge.innerHTML = `<span>⏳</span> <span>Триал: ${st.daysLeft} дн.</span>`;
+                adBanner.classList.add('hidden');
+                adBanner.classList.remove('flex');
+                if (printWatermark) printWatermark.classList.add('hidden');
+            } else {
+                badge.classList.add('status-badge-free');
+                if (st.isAdSessionActive) {
+                    badge.innerHTML = '<span>🎬</span> <span>Free (Реклама просмотрена)</span>';
+                } else {
+                    badge.innerHTML = '<span>🔒</span> <span>Free (Триал истек)</span>';
+                }
+                adBanner.classList.remove('hidden');
+                adBanner.classList.add('flex');
+                if (printWatermark) printWatermark.classList.remove('hidden');
+            }
+        }
+
+        function openPaywallModal(reason) {
+            const st = getLicenseState();
+            const modal = document.getElementById('paywallModal');
+            const statusBox = document.getElementById('paywallStatusBox');
+            const rewardBox = document.getElementById('rewardAdOptionBox');
+            const subtitle = document.getElementById('paywallSubtitle');
+
+            if (reason === 'pdf') {
+                subtitle.innerText = 'Для экспорта чертежа А4 в PDF выберите вариант доступа';
+            } else if (reason === 'template') {
+                subtitle.innerText = 'Инженерный шаблон доступен в PRO или за просмотр рекламы';
+            } else {
+                subtitle.innerText = 'Статус лицензии и параметры доступа';
+            }
+
+            if (st.isPro) {
+                const daysInfo = st.proDaysLeft > 0 ? ` (осталось ${st.proDaysLeft} дн.)` : '';
+                statusBox.innerHTML = `<b>👑 Статус: Форма Окон PRO — ${st.proPlanName}${daysInfo}</b><br>Все 14 шаблонов и векторный экспорт А4 в PDF работают без ограничений и рекламы.`;
+                rewardBox.classList.add('hidden');
+            } else if (st.isTrialActive) {
+                statusBox.innerHTML = `<b>⏳ Пробный период активен (осталось ${st.daysLeft} дн. из 30)</b><br>Сейчас вам бесплатно доступны все PRO-функции без рекламы. По окончании 30 дней вы сможете оформить подписку или продолжить работу бесплатно с просмотром рекламы.`;
+                rewardBox.classList.add('hidden');
+            } else {
+                statusBox.innerHTML = `<b>🔒 Пробный период (30 дней) завершен</b><br>Выберите подходящий тариф <b>Форма Окон PRO</b> ниже или посмотрите 5-секундный рекламный ролик для бесплатного доступа.`;
+                rewardBox.classList.remove('hidden');
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closePaywallModal() {
+            const modal = document.getElementById('paywallModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function openPaymentLink() {
+            const plan = SUBSCRIPTION_PLANS[selectedPlanKey] || SUBSCRIPTION_PLANS['6m'];
+            window.open(plan.checkoutUrl, '_blank');
+        }
+
+        function activateProByCode() {
+            const inp = document.getElementById('proActivationCode');
+            const code = (inp.value || '').trim().toUpperCase();
+            const codeMap = {
+                'FORMA-1M': '1m',
+                'FORMA-6M': '6m',
+                'FORMA-1Y': '12m',
+                'FORMA-12M': '12m',
+                'FORMA-PRO': selectedPlanKey,
+                'PRO2026': '12m'
+            };
+            if (codeMap[code]) {
+                activateProSubscription(codeMap[code]);
+                inp.value = '';
+                updateLicenseUI();
+                renderTemplateGrid();
+                closePaywallModal();
+                if (pendingRewardAction) {
+                    const act = pendingRewardAction;
+                    pendingRewardAction = null;
+                    act();
+                }
+            } else {
+                inp.style.borderColor = '#e11d48';
+                setTimeout(() => { inp.style.borderColor = '#cbd5e1'; }, 1500);
+            }
+        }
+
+        function startRewardedAd() {
+            closePaywallModal();
+            const adModal = document.getElementById('rewardAdModal');
+            const timerBadge = document.getElementById('rewardTimerBadge');
+            const claimBtn = document.getElementById('rewardAdClaimBtn');
+
+            let sec = 5;
+            claimBtn.disabled = true;
+            claimBtn.style.opacity = '0.5';
+            claimBtn.innerText = `Подождите ${sec} сек...`;
+            timerBadge.innerText = `Осталось: ${sec} сек`;
+
+            adModal.classList.remove('hidden');
+            adModal.classList.add('flex');
+
+            if (rewardInterval) clearInterval(rewardInterval);
+            rewardInterval = setInterval(() => {
+                sec -= 1;
+                if (sec > 0) {
+                    timerBadge.innerText = `Осталось: ${sec} сек`;
+                    claimBtn.innerText = `Подождите ${sec} сек...`;
+                } else {
+                    clearInterval(rewardInterval);
+                    timerBadge.innerText = 'Реклама просмотрена ✓';
+                    claimBtn.disabled = false;
+                    claimBtn.style.opacity = '1';
+                    claimBtn.className = 'w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg transition';
+                    claimBtn.innerText = '✅ Продолжить работу (Доступ открыт)';
+                }
+            }, 1000);
+        }
+
+        function finishRewardedAd() {
+            const adModal = document.getElementById('rewardAdModal');
+            adModal.classList.add('hidden');
+            adModal.classList.remove('flex');
+
+            // Разблокируем полный доступ на 30 минут после просмотра рекламы
+            localStorage.setItem(STORAGE_KEYS.adUnlockedUntil, (Date.now() + 30 * 60 * 1000).toString());
+            updateLicenseUI();
+            renderTemplateGrid();
+
+            if (pendingRewardAction) {
+                const act = pendingRewardAction;
+                pendingRewardAction = null;
+                act();
+            }
+        }
+
+        // Переключатель режимов для тестирования (Триал 30 дней / Триал истек / PRO)
+        function devSetMode(mode) {
+            if (mode === 'trial') {
+                localStorage.setItem(STORAGE_KEYS.installDate, Date.now().toString());
+                localStorage.removeItem(STORAGE_KEYS.isPro);
+                localStorage.removeItem(STORAGE_KEYS.adUnlockedUntil);
+            } else if (mode === 'expired') {
+                const past35Days = Date.now() - (35 * 24 * 60 * 60 * 1000);
+                localStorage.setItem(STORAGE_KEYS.installDate, past35Days.toString());
+                localStorage.removeItem(STORAGE_KEYS.isPro);
+                localStorage.removeItem(STORAGE_KEYS.adUnlockedUntil);
+                if (PRO_TEMPLATE_KEYS.includes(currentKey)) {
+                    currentKey = 't1_trap_left';
+                    initInputs();
+                }
+            } else if (mode === 'pro') {
+                activateProSubscription(selectedPlanKey);
+            }
+            updateLicenseUI();
+            renderTemplateGrid();
+            update();
+            openPaywallModal('status');
+        }
+
+        // Обработчик кнопки экспорта PDF с проверкой триала / подписки
+        function handleExportPDFClick() {
+            const st = getLicenseState();
+            if (!st.hasFullAccess) {
+                pendingRewardAction = () => {
+                    exportVectorPDF();
+                };
+                openPaywallModal('pdf');
+                return;
+            }
+            exportVectorPDF();
+        }
+
+        // Векторный экспорт через системный диалог печати ("Сохранить как PDF")
+        function exportVectorPDF() {
+            preparePrintSheetA4();
+            window.print();
+        }
+
+        document.querySelectorAll('#offLeft, #offRight, #offTop, #offBottom, #truncSize').forEach(input => {
+            input.addEventListener('input', update);
+        });
+
+        let _appInitialized = false;
+        function bootFormaOkon() {
+            if (_appInitialized) return;
+            _appInitialized = true;
+            try { initLicenseSystem(); } catch (e) { console.error(e); }
+            try { renderTemplateGrid(); } catch (e) { console.error(e); }
+            try { initInputs(); } catch (e) { console.error(e); }
+            try { update(); } catch (e) { console.error(e); }
+        }
+        bootFormaOkon();
+        document.addEventListener('DOMContentLoaded', bootFormaOkon);
+        window.addEventListener('load', bootFormaOkon);
+    
+        // Логика кнопки «Установить приложение» (PWA)
+        let deferredPrompt = null;
+        const installBtn = document.getElementById('installPwaBtn');
+
+        function isRunningStandalone() {
+            return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        }
+
+        function isIosDevice() {
+            return /iphone|ipad|ipod/i.test(window.navigator.userAgent);
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (!isRunningStandalone()) {
+                installBtn.classList.remove('hidden');
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            deferredPrompt = null;
+            installBtn.classList.add('hidden');
+        });
+
+        async function handleInstallPwa() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    installBtn.classList.add('hidden');
+                }
+                deferredPrompt = null;
+            } else {
+                const modal = document.getElementById('iosInstallModal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeInstallModal() {
+            const modal = document.getElementById('iosInstallModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        window.addEventListener('load', () => {
+            if (!isRunningStandalone() && isIosDevice()) {
+                installBtn.classList.remove('hidden');
+            }
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js?v=8', { updateViaCache: 'none' }).then(reg => {
+                    reg.update().catch(() => {});
+                }).catch(() => {});
+            }
+        });
+    </script>
+</body>
+</html>
