@@ -749,16 +749,19 @@
                 💡 На телефоне также можно зажать картинку пальцем и выбрать <b>«Сохранить изображение»</b>
             </p>
 
+            <!-- Статус сохранения / подсказка для VK WebView -->
+            <div id="exportStatusNotice" class="hidden p-2 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-900 text-center"></div>
+
             <!-- Кнопки действий -->
             <div class="grid grid-cols-2 gap-2 shrink-0 pt-1">
                 <button onclick="shareOrDownloadA4('pdf')" class="col-span-2 py-2.5 px-3 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center gap-1.5 transition">
                     <span>📤</span> Скачать / Поделиться PDF (А4)
                 </button>
                 <button onclick="shareOrDownloadA4('png')" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center gap-1.5 transition">
-                    <span>🖼️</span> Скачать PNG
+                    <span>🖼️</span> Скачать / Отправить PNG
                 </button>
-                <button onclick="triggerDesktopPrint()" class="py-2 px-3 bg-slate-800 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center gap-1.5 transition">
-                    <span>🖨️</span> Печать на принтере
+                <button onclick="openInExternalBrowserOrPrint()" class="py-2 px-3 bg-slate-800 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center gap-1.5 transition">
+                    <span id="printOrBrowserBtnIcon">🖨️</span> <span id="printOrBrowserBtnText">Печать / В браузере</span>
                 </button>
             </div>
         </div>
@@ -2573,7 +2576,24 @@
 
         let _lastGeneratedPdfBlob = null;
         let _lastGeneratedPngBlob = null;
+        let _lastGeneratedPngDataUrl = null;
+        let _lastGeneratedPdfDataUrl = null;
         let _lastGeneratedFileNameBase = 'Форма_Окон_Замер';
+
+        function isVkMiniAppEnv() {
+            return window.location.search.includes('vk_') || /VKClient|Vkontakte/i.test(navigator.userAgent);
+        }
+
+        function isMobileDevice() {
+            return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || isVkMiniAppEnv();
+        }
+
+        function showExportNotice(msg) {
+            const box = document.getElementById('exportStatusNotice');
+            if (!box) return;
+            box.innerHTML = msg;
+            box.classList.remove('hidden');
+        }
 
         // Генерация настоящего PDF-файла (A4 портрет: 595.28 x 841.89 pt) из JPEG DataURL без внешних библиотек
         function jpegDataUrlToPdfBlob(jpegDataUrl, widthPx, heightPx) {
@@ -2893,13 +2913,24 @@
             return cnv;
         }
 
+        function blobToDataUrl(blob) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.readAsDataURL(blob);
+            });
+        }
+
         // Открытие универсального окна сохранения/отправки А4 (работает в VK Mini App, Telegram и на телефонах)
         async function exportVectorPDF() {
             const cnv = await buildA4SheetCanvas();
             const jpegUrl = cnv.toDataURL('image/jpeg', 0.92);
             const pngUrl = cnv.toDataURL('image/png');
 
+            _lastGeneratedPngDataUrl = pngUrl;
             _lastGeneratedPdfBlob = jpegDataUrlToPdfBlob(jpegUrl, cnv.width, cnv.height);
+            _lastGeneratedPdfDataUrl = await blobToDataUrl(_lastGeneratedPdfBlob);
+
             const pngBin = atob(pngUrl.split(',')[1]);
             const pngArr = new Uint8Array(pngBin.length);
             for (let i = 0; i < pngBin.length; i++) pngArr[i] = pngBin.charCodeAt(i);
@@ -2907,6 +2938,19 @@
 
             const previewImg = document.getElementById('a4PreviewImg');
             if (previewImg) previewImg.src = pngUrl;
+
+            const noticeBox = document.getElementById('exportStatusNotice');
+            if (noticeBox) noticeBox.classList.add('hidden');
+
+            const btnIcon = document.getElementById('printOrBrowserBtnIcon');
+            const btnText = document.getElementById('printOrBrowserBtnText');
+            if (isMobileDevice()) {
+                if (btnIcon) btnIcon.innerText = '🌐';
+                if (btnText) btnText.innerText = 'Открыть в браузере';
+            } else {
+                if (btnIcon) btnIcon.innerText = '🖨️';
+                if (btnText) btnText.innerText = 'Печать на принтере';
+            }
 
             const modal = document.getElementById('mobileA4Modal');
             modal.classList.remove('hidden');
@@ -2922,12 +2966,27 @@
         async function shareOrDownloadA4(format) {
             const isPdf = format === 'pdf';
             const blob = isPdf ? _lastGeneratedPdfBlob : _lastGeneratedPngBlob;
+            const dataUrl = isPdf ? _lastGeneratedPdfDataUrl : _lastGeneratedPngDataUrl;
             if (!blob) return;
             const ext = isPdf ? 'pdf' : 'png';
             const mime = isPdf ? 'application/pdf' : 'image/png';
             const fileName = `${_lastGeneratedFileNameBase}.${ext}`;
 
-            // На телефонах (iOS / Android / VK / Telegram) пробуем вызвать системное меню «Поделиться / Сохранить файл»
+            // 1. Внутри VK Mini App на телефоне пробуем нативные методы VK Bridge (VKWebAppDownloadFile / VKWebAppShare)
+            if (window.vkBridge && isVkMiniAppEnv()) {
+                try {
+                    const dlRes = await window.vkBridge.send('VKWebAppDownloadFile', {
+                        url: dataUrl,
+                        filename: fileName
+                    });
+                    if (dlRes && dlRes.result) {
+                        showExportNotice(`✅ Файл <b>${fileName}</b> сохранён в папку «Загрузки» телефона!`);
+                        return;
+                    }
+                } catch (e) {}
+            }
+
+            // 2. Системное меню «Поделиться» (iOS Safari / Android Chrome / Telegram)
             if (navigator.canShare && navigator.share) {
                 try {
                     const file = new File([blob], fileName, { type: mime });
@@ -2944,25 +3003,49 @@
                 }
             }
 
-            // Прямое скачивание файла (для ПК и браузеров)
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = fileName;
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => {
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }, 1500);
+            // 3. На ПК — стандартное скачивание через Blob URL
+            if (!isMobileDevice()) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;
+                document.body.appendChild(a);
+                a.click();
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 1500);
+                return;
+            }
+
+            // 4. Запасной вариант для мобильного WebView ВК (если встроенный браузер ВК блокирует Blob/Share):
+            // предлагаем зажать картинку пальцем или открыть в системном браузере (Chrome/Safari)
+            if (!isPdf) {
+                showExportNotice('📲 <b>Зажмите картинку чертежа выше пальцем на 1 сек</b> и выберите <b>«Сохранить изображение»</b> в галерею (или нажмите <b>«Открыть в браузере»</b> ниже).');
+            } else {
+                showExportNotice('📲 Встроенный браузер ВК ограничивает прямую загрузку PDF. Нажмите кнопку <b>«🌐 Открыть в браузере»</b> справа внизу, чтобы сохранить PDF в Chrome/Safari, или скачайте как PNG.');
+            }
         }
 
-        function triggerDesktopPrint() {
-            closeMobileA4Modal();
-            setTimeout(() => {
-                preparePrintSheetA4();
-                window.print();
-            }, 150);
+        function openInExternalBrowserOrPrint() {
+            if (!isMobileDevice()) {
+                closeMobileA4Modal();
+                setTimeout(() => {
+                    preparePrintSheetA4();
+                    window.print();
+                }, 150);
+                return;
+            }
+
+            // На телефоне открываем чистый адрес приложения в системном браузере (Chrome / Safari), где скачивание PDF и печать работают без ограничений VK WebView
+            const cleanUrl = window.location.origin + window.location.pathname;
+            if (window.vkBridge && isVkMiniAppEnv()) {
+                window.vkBridge.send('VKWebAppOpenApp', { app_id: 54891524 }).catch(() => {});
+            }
+            const opened = window.open(cleanUrl, '_blank');
+            if (!opened) {
+                showExportNotice(`🌐 Нажмите <b>«•••»</b> в правом верхнем углу окна ВК и выберите <b>«Открыть в браузере»</b> — там PDF скачивается напрямую.`);
+            }
         }
 
         document.querySelectorAll('#offLeft, #offRight, #offTop, #offBottom, #truncSize').forEach(input => {
